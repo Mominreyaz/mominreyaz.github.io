@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Indian History — SSB Exam Preparation</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --saffron: #ff9933;
+  --white-col: #e8e8e8;
+  --green: #138808;
+  --green-light: #3fb950;
+  --gold: #d4a017;
+  --red: #c0392b;
+  --blue: #1f6feb;
+  --navy: #1c3f6e;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'EB Garamond', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* === HEADER === */
+header {
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 60%, #1c1a0f 100%);
+  border-bottom: 2px solid var(--saffron);
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 60px,
+    rgba(255,153,51,0.03) 60px,
+    rgba(255,153,51,0.03) 61px
+  );
+}
+
+.ashoka-wheel {
+  display: inline-block;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  animation: spin 12s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(255,153,51,0.5));
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.tricolor-bar {
+  display: flex;
+  height: 4px;
+  width: 220px;
+  margin: 0 auto 1.2rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.tricolor-bar span:nth-child(1) { background: var(--saffron); flex: 1; }
+.tricolor-bar span:nth-child(2) { background: var(--white-col); flex: 1; }
+.tricolor-bar span:nth-child(3) { background: var(--green); flex: 1; }
+
+.header-center { text-align: center; position: relative; }
+
+.ssb-badge {
+  display: inline-block;
+  background: rgba(255,153,51,0.15);
+  border: 1px solid var(--saffron);
+  color: var(--saffron);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  padding: 0.25rem 0.9rem;
+  border-radius: 2px;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+h1 span { color: var(--saffron); }
+
+.subtitle {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  font-size: 1.05rem;
+}
+
+/* === NAV === */
+.era-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.2rem 1rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.era-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+.era-btn:hover { border-color: var(--saffron); color: var(--saffron); }
+.era-btn.active { background: var(--saffron); border-color: var(--saffron); color: #000; }
+
+/* === MAIN LAYOUT === */
+.timeline-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+.era-section { display: none; }
+.era-section.visible { display: block; animation: fadeUp 0.35s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Era header */
+.era-hdr {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.era-hdr-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--saffron), transparent);
+}
+.era-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--saffron);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.era-years {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.1rem;
+}
+
+/* Timeline track */
+.timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--saffron), var(--green), var(--saffron));
+  opacity: 0.4;
+}
+
+/* Event card */
+.event {
+  position: relative;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.event::before {
+  content: '';
+  position: absolute;
+  left: -2.3rem;
+  top: 0.75rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--saffron);
+  background: var(--bg);
+  transition: all 0.2s;
+  z-index: 1;
+}
+.event:hover::before,
+.event.open::before {
+  background: var(--saffron);
+  box-shadow: 0 0 10px rgba(255,153,51,0.6);
+}
+
+.event-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.event:hover .event-card,
+.event.open .event-card {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 1px rgba(255,153,51,0.15), 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.event-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.event-year {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--saffron);
+  background: rgba(255,153,51,0.1);
+  border: 1px solid rgba(255,153,51,0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.event-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  flex: 1;
+}
+
+.event-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.tag-military  { background: rgba(192,57,43,0.2);  color: #e74c3c; border: 1px solid rgba(192,57,43,0.4); }
+.tag-political { background: rgba(31,111,235,0.2); color: #58a6ff; border: 1px solid rgba(31,111,235,0.4);}
+.tag-social    { background: rgba(19,136,8,0.2);   color: var(--green-light); border: 1px solid rgba(19,136,8,0.4);}
+.tag-economic  { background: rgba(212,160,23,0.2); color: var(--gold); border: 1px solid rgba(212,160,23,0.4);}
+.tag-national  { background: rgba(255,153,51,0.15);color: var(--saffron); border: 1px solid rgba(255,153,51,0.4);}
+
+/* SSB Key Point badge */
+.ssb-key {
+  display: inline-block;
+  background: rgba(255,153,51,0.1);
+  border: 1px solid var(--saffron);
+  color: var(--saffron);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 2px;
+  margin-top: 0.3rem;
+}
+
+/* Expand detail */
+.event-detail {
+  display: none;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+.event.open .event-detail { display: block; animation: fadeUp 0.2s ease; }
+
+.event-body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #c9d1d9;
+  margin-bottom: 0.7rem;
+}
+
+.ssb-points {
+  background: rgba(255,153,51,0.05);
+  border-left: 3px solid var(--saffron);
+  padding: 0.7rem 0.9rem;
+  border-radius: 0 4px 4px 0;
+}
+.ssb-points-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--saffron);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.ssb-points ul {
+  list-style: none;
+  padding: 0;
+}
+.ssb-points li {
+  font-size: 0.88rem;
+  color: #e6edf3;
+  padding: 0.2rem 0;
+  padding-left: 1.1rem;
+  position: relative;
+}
+.ssb-points li::before {
+  content: '▸';
+  color: var(--saffron);
+  position: absolute;
+  left: 0;
+  font-size: 0.7rem;
+  top: 0.27rem;
+}
+
+/* QUIZ SECTION */
+.quiz-section {
+  margin-top: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+.quiz-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--saffron);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.quiz-q {
+  margin-bottom: 1.2rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+}
+.quiz-q p {
+  font-size: 0.95rem;
+  margin-bottom: 0.7rem;
+  color: var(--text);
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.quiz-opt {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.quiz-opt:hover { border-color: var(--saffron); color: var(--text); }
+.quiz-opt.correct { background: rgba(19,136,8,0.2); border-color: var(--green-light); color: var(--green-light); }
+.quiz-opt.wrong   { background: rgba(192,57,43,0.15); border-color: #e74c3c; color: #e74c3c; }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-center">
+    <div class="ashoka-wheel">☸</div>
+    <div class="tricolor-bar"><span></span><span></span><span></span></div>
+    <div class="ssb-badge">SSB Exam Preparation</div>
+    <h1>Modern <span>Indian</span> History</h1>
+    <p class="subtitle">From Colonial Rule to the Republic &mdash; 1757 to 1960s</p>
+  </div>
+</header>
+
+<nav class="era-nav">
+  <button class="era-btn active" data-era="colonial">Colonial Rule</button>
+  <button class="era-btn" data-era="revolt">Revolt of 1857</button>
+  <button class="era-btn" data-era="national">National Movement</button>
+  <button class="era-btn" data-era="gandhi">Gandhi Era</button>
+  <button class="era-btn" data-era="independence">Independence & Beyond</button>
+  <button class="era-btn" data-era="quiz">Quick Quiz ✦</button>
+</nav>
+
+<div class="timeline-wrap">
+
+  <!-- ERA 1: COLONIAL RULE -->
+  <section class="era-section visible" id="colonial">
+    <div class="era-hdr">
+      <div>
+        <div class="era-title">Colonial Rule Established</div>
+        <span class="era-years">1600 — 1856</span>
+      </div>
+      <div class="era-hdr-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1600</span>
+            <span class="event-title">East India Company Founded</span>
+            <span class="event-tag tag-economic">Economic</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">The English East India Company was granted a Royal Charter by Queen Elizabeth I to trade in the East. It initially competed with Portuguese, Dutch and French traders for control of Indian spice, cotton and silk trade. The first English factory was set up on the banks of the river Hugli in 1651, which eventually grew into Calcutta (Kolkata).</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Company was a mercantile trading body, not initially a ruling power</li>
+                <li>First factory at Hugli, 1651 → later grew into Calcutta</li>
+                <li>Competed with Portuguese, Dutch, and French East India Companies</li>
+                <li>Obtained zamindari rights over 3 villages including Kalikata from Mughals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1757</span>
+            <span class="event-title">Battle of Plassey</span>
+            <span class="event-tag tag-military">Military</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Robert Clive led the Company's forces against Nawab Sirajuddaulah of Bengal at Plassey. The Nawab was betrayed by his own commander Mir Jafar, who never fought the battle in return for being made the next Nawab. This was the first major Company military victory in India and the beginning of British political dominance over Bengal.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Robert Clive defeated Sirajuddaulah, Nawab of Bengal</li>
+                <li>Mir Jafar betrayed the Nawab and was made the new puppet Nawab</li>
+                <li>First major Company military victory in India</li>
+                <li>Marked shift from trade to political power</li>
+                <li>Plassey = anglicised "Palashi", named after the palash tree</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1764</span>
+            <span class="event-title">Battle of Buxar</span>
+            <span class="event-tag tag-military">Military</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">Mir Qasim (who replaced Mir Jafar) rebelled against Company interference and allied with the Nawab of Awadh and the Mughal Emperor. He was defeated at Buxar. The victory was more decisive than Plassey and proved the Company's military superiority over Indian rulers.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Fought between Company and combined forces of Mir Qasim, Nawab of Awadh, and Mughal Emperor Shah Alam II</li>
+                <li>Company victory → more decisive than Plassey</li>
+                <li>Led directly to Diwani grant in 1765</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1765</span>
+            <span class="event-title">Company becomes Diwan of Bengal</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">On 12 August 1765, the Mughal Emperor appointed the East India Company as the Diwan of Bengal, Bihar and Orissa. As Diwan, the Company became the chief financial administrator — it could now collect and use Bengal's vast revenues. This was a turning point: from trading company to territorial colonial power. Robert Clive declared "We must indeed become nawabs ourselves."</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Diwani = right to collect land revenue of Bengal, Bihar, Orissa</li>
+                <li>Company no longer needed to import gold from Britain to buy Indian goods</li>
+                <li>Revenues from India now financed Company's army, trade and expansion</li>
+                <li>Transition from trade to territorial rule begins here</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1773</span>
+            <span class="event-title">Warren Hastings — First Governor-General</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">The Regulating Act of 1773 established the post of Governor-General of India. Warren Hastings became the first Governor-General. This marked the beginning of direct British government oversight of the Company's rule in India, replacing purely commercial management.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>First Governor-General of India: Warren Hastings (1773)</li>
+                <li>Regulating Act, 1773 — British Parliament's first regulation of Company</li>
+                <li>Began formalisation of colonial administration</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1857</span>
+            <span class="event-title">Doctrine of Lapse — Dalhousie's Expansion</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">Lord Dalhousie implemented the Doctrine of Lapse — if an Indian ruler died without a natural heir, the kingdom would be "lapsed" (annexed) to the Company. States like Satara, Nagpur, Jhansi and others were annexed. This policy deeply angered Indian rulers including the Rani of Jhansi, fuelling the fires of the 1857 revolt.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Dalhousie: Governor-General 1848–1856</li>
+                <li>Doctrine of Lapse: annexed states without natural heirs</li>
+                <li>Annexed: Satara (1848), Jhansi (1854), Nagpur (1854), Awadh (1856)</li>
+                <li>Major cause of the Revolt of 1857</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 2: REVOLT OF 1857 -->
+  <section class="era-section" id="revolt">
+    <div class="era-hdr">
+      <div>
+        <div class="era-title">The Revolt of 1857</div>
+        <span class="era-years">1857 — 1858</span>
+      </div>
+      <div class="era-hdr-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1857</span>
+            <span class="event-title">Outbreak of the Great Revolt</span>
+            <span class="event-tag tag-military">Military</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">The immediate trigger was the introduction of the Enfield rifle cartridges greased with animal fat — offensive to both Hindu and Muslim soldiers. The revolt began at Meerut on May 10, 1857, when sepoys refused to use the cartridges, were imprisoned, and then freed by their fellow soldiers. The rebellion spread rapidly across north and central India.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Started at Meerut, 10 May 1857 by Indian sepoys</li>
+                <li>Immediate cause: greased Enfield cartridges (cow/pig fat)</li>
+                <li>Deeper causes: Doctrine of Lapse, land revenue policies, cultural interference</li>
+                <li>Key leaders: Rani Lakshmi Bai (Jhansi), Nana Sahib (Kanpur), Bahadur Shah Zafar (Delhi), Tantia Tope, Begum Hazrat Mahal (Lucknow)</li>
+                <li>Known as: First War of Independence / Sepoy Mutiny / Revolt of 1857</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1858</span>
+            <span class="event-title">British Crown Takes Direct Control</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">After suppressing the revolt by end of 1859, the British Parliament passed a new Act in 1858 transferring all powers from the East India Company to the British Crown. The Governor-General was given the title of Viceroy. Queen Victoria's Proclamation promised to respect the rights of all Indian rulers and non-interference in religious matters.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Government of India Act, 1858 — Company rule ended</li>
+                <li>British Crown / Queen Victoria assumed direct rule over India</li>
+                <li>Governor-General now called Viceroy (representative of the Crown)</li>
+                <li>Secretary of State for India appointed, advised by India Council</li>
+                <li>Proportion of Indian soldiers reduced; more Gurkhas, Sikhs, Pathans recruited</li>
+                <li>Ruling chiefs assured: no more annexations; could pass kingdoms to heirs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 3: NATIONAL MOVEMENT -->
+  <section class="era-section" id="national">
+    <div class="era-hdr">
+      <div>
+        <div class="era-title">Rise of the National Movement</div>
+        <span class="era-years">1870s — 1915</span>
+      </div>
+      <div class="era-hdr-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1885</span>
+            <span class="event-title">Indian National Congress Founded</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">The Indian National Congress (INC) was founded in December 1885 in Bombay, with A.O. Hume, a retired British civil servant, playing a key role. It began as an organisation of educated Indians — lawyers, journalists and professionals — who sought greater rights and representation through petitions and constitutional methods. Early leaders (Moderates) included Dadabhai Naoroji, Bal Gangadhar Tilak, Gopal Krishna Gokhale and Pherozeshah Mehta.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Founded: December 1885, Bombay</li>
+                <li>Founders include A.O. Hume (retired ICS officer)</li>
+                <li>Moderates: sought constitutional reforms through petitions — Gokhale, Mehta, Naoroji</li>
+                <li>Radicals/Extremists: demanded self-rule, used boycott — Tilak, Lajpat Rai, Bipin Pal</li>
+                <li>Split in 1907 at Surat; reunited in December 1915</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1905</span>
+            <span class="event-title">Partition of Bengal & Swadeshi Movement</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Lord Curzon announced the Partition of Bengal on religious lines (Hindu West / Muslim East Bengal) on 16 October 1905. This was seen as a British attempt to divide the nationalist movement. It sparked the Swadeshi Movement — boycott of British goods and use of Indian-made (swadeshi) products. The movement introduced mass politics into the independence struggle.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Viceroy Curzon partitioned Bengal: 1905 (reversed in 1911)</li>
+                <li>Swadeshi = use of Indian goods; boycott of British goods</li>
+                <li>First major mass agitation in India</li>
+                <li>Led by Bal Gangadhar Tilak, Bipin Chandra Pal, Lala Lajpat Rai ("Lal-Bal-Pal")</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1906</span>
+            <span class="event-title">Muslim League Founded</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">The All India Muslim League was established in Dhaka in 1906. It initially sought to protect Muslim political interests under British rule. The Lucknow Pact (1916) saw the Congress and Muslim League cooperate for representative government. However, by the 1930s–40s the League, under Jinnah, demanded a separate Muslim nation.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Founded: 1906, Dhaka</li>
+                <li>Lucknow Pact, 1916: Congress–League alliance for self-rule</li>
+                <li>Pakistan Resolution, 1940 (Lahore): demanded separate Muslim states</li>
+                <li>Muhammad Ali Jinnah: key leader of the League</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1915</span>
+            <span class="event-title">Gandhi Returns to India from South Africa</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Mahatma Gandhi returned to India in 1915 at age 46, already famous for leading Indians in South Africa against racial discrimination using non-violent resistance (Satyagraha). He spent his first year travelling India, understanding its people. His first major interventions were in Champaran (Bihar), Kheda (Gujarat) and Ahmedabad — establishing his method of peaceful mass resistance.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Gandhi returned from South Africa, 1915</li>
+                <li>Satyagraha = truth-force / non-violent resistance</li>
+                <li>Champaran Satyagraha (1917): against indigo planters — first civil disobedience in India</li>
+                <li>Kheda Satyagraha (1918): peasant agitation against tax during crop failure</li>
+                <li>Ahmedabad mill workers' strike, 1918</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 4: GANDHI ERA -->
+  <section class="era-section" id="gandhi">
+    <div class="era-hdr">
+      <div>
+        <div class="era-title">The Gandhi Era & Mass Movements</div>
+        <span class="era-years">1919 — 1947</span>
+      </div>
+      <div class="era-hdr-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1919</span>
+            <span class="event-title">Jallianwala Bagh Massacre</span>
+            <span class="event-tag tag-military">Military</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Against the Rowlatt Act (1919) which curbed civil liberties, Gandhi called the first all-India Satyagraha on 6 April 1919. General Dyer opened fire on a peaceful, unarmed assembly in the Jallianwala Bagh, Amritsar on Baisakhi Day (13 April 1919), killing hundreds. Rabindranath Tagore renounced his knighthood in protest. This massacre radicalised Indian public opinion against British rule.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Rowlatt Act, 1919: curtailed fundamental rights; called "Black Act"</li>
+                <li>Jallianwala Bagh: 13 April 1919, Amritsar; General Dyer ordered firing</li>
+                <li>Rabindranath Tagore renounced his knighthood in protest</li>
+                <li>Rowlatt Satyagraha: first all-India agitation against British</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1920–22</span>
+            <span class="event-title">Non-Cooperation Movement</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Gandhi launched the Non-Cooperation Movement combining protest against the Jallianwala Bagh massacre and the Khilafat issue (British treatment of the Ottoman Caliph). Thousands of students left British schools, lawyers gave up practice, people boycotted foreign cloth. Gandhi called off the movement after the Chauri Chaura incident (February 1922) in which a crowd burnt a police station killing 22 policemen.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Launched 1920; combined Khilafat and anti-British grievances</li>
+                <li>Forms: boycott of schools, courts, legislatures, foreign cloth</li>
+                <li>Called off after Chauri Chaura incident, February 1922</li>
+                <li>Khilafat leaders: Mohammad Ali and Shaukat Ali</li>
+                <li>First truly mass-scale national movement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1929</span>
+            <span class="event-title">Purna Swaraj Resolution — Lahore Congress</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Under the presidentship of Jawaharlal Nehru, the Indian National Congress passed the Purna Swaraj (Complete Independence) resolution at the Lahore session in December 1929. 26 January 1930 was declared as "Independence Day" and observed all over India — a date that would later become Republic Day.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Lahore Session, December 1929: Purna Swaraj declared</li>
+                <li>Presided over by Jawaharlal Nehru</li>
+                <li>26 January 1930 observed as Independence Day (later became Republic Day)</li>
+                <li>Prior to this, Congress had only demanded Dominion Status (Home Rule)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1930</span>
+            <span class="event-title">Dandi March — Salt Satyagraha</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Gandhi led a 240-mile march from Sabarmati Ashram to the coastal town of Dandi to break the salt law — which gave the British state a monopoly on salt production and taxed it heavily. On 6 April 1930, Gandhi gathered natural salt at the seashore, launching the Civil Disobedience Movement. The march united rich and poor, as salt was a universal necessity. Women participated in large numbers.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Dandi March: 12 March – 6 April 1930</li>
+                <li>240 miles from Sabarmati (Ahmedabad) to Dandi (Gujarat coast)</li>
+                <li>Broke salt law: challenged British taxation on a basic necessity</li>
+                <li>Civil Disobedience Movement launched; mass arrests followed</li>
+                <li>Gandhi–Irwin Pact (1931) followed; Gandhi attended 2nd Round Table Conference in London</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1928–31</span>
+            <span class="event-title">Bhagat Singh & Revolutionary Nationalism</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">Bhagat Singh, Chandra Shekhar Azad, Sukhdev and Rajguru founded the Hindustan Socialist Republican Association (HSRA) in 1928. In December 1928, Bhagat Singh and Rajguru assassinated British police officer Saunders who was involved in the lathi-charge that caused the death of Lala Lajpat Rai. On 8 April 1929, Bhagat Singh and B.K. Dutt threw a bomb in the Central Legislative Assembly (not to kill, but "to make the deaf hear"). Bhagat Singh, Sukhdev and Rajguru were hanged on 23 March 1931. Bhagat Singh was only 23 years old.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>HSRA founded 1928 at Ferozeshah Kotla, Delhi</li>
+                <li>Lala Lajpat Rai died after lathi-charge during Simon Commission protests, 1928</li>
+                <li>Bhagat Singh and Rajguru: assassinated Saunders (December 1928)</li>
+                <li>Bomb in Central Legislative Assembly: 8 April 1929</li>
+                <li>Executed: 23 March 1931; Bhagat Singh aged 23</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1942</span>
+            <span class="event-title">Quit India Movement</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">During World War II, Gandhi launched the Quit India Movement on 8 August 1942, demanding immediate British withdrawal. His call: "Do or Die." Gandhi and all Congress leaders were immediately arrested. The movement spread across India — peasants, youth, workers attacked symbols of British authority. By end 1943, over 90,000 people were arrested and around 1,000 killed in police firing. The rebellion brought the Raj to its knees.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Launched: 8 August 1942, Bombay session of Congress</li>
+                <li>Gandhi's slogan: "Do or Die" (Karo ya Maro)</li>
+                <li>All Congress leaders arrested immediately</li>
+                <li>90,000+ arrested; ~1,000 killed in police firing</li>
+                <li>Subhas Chandra Bose formed Indian National Army (INA/Azad Hind Fauj) in 1941–43</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 5: INDEPENDENCE AND BEYOND -->
+  <section class="era-section" id="independence">
+    <div class="era-hdr">
+      <div>
+        <div class="era-title">Independence & the Republic</div>
+        <span class="era-years">1947 — 1960s</span>
+      </div>
+      <div class="era-hdr-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">15 Aug 1947</span>
+            <span class="event-title">India's Independence & Partition</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">India achieved independence at midnight on 14–15 August 1947. But independence came with the partition of the subcontinent into India and Pakistan. The partition caused one of history's largest forced migrations: 8 million refugees entered India. Hundreds of thousands were killed in communal riots. India's population was ~345 million across nearly 500 princely states that had to be integrated.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Independence Day: 15 August 1947</li>
+                <li>Mountbatten Plan / 3 June Plan: announced partition of India and Pakistan</li>
+                <li>8 million refugees entered India from Pakistan</li>
+                <li>Jawaharlal Nehru: first Prime Minister of India</li>
+                <li>Sardar Vallabhbhai Patel: integrated ~500 princely states into India</li>
+                <li>Muhammad Ali Jinnah: first Governor-General of Pakistan</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">30 Jan 1948</span>
+            <span class="event-title">Assassination of Mahatma Gandhi</span>
+            <span class="event-tag tag-national">National</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">Mahatma Gandhi — the Father of the Nation — was assassinated by Nathuram Godse on 30 January 1948, less than six months after independence. Godse disagreed with Gandhi's conviction that Hindus and Muslims should live together in harmony. Nehru announced to the nation: "The light has gone out of our lives and there is darkness everywhere."</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Assassinated: 30 January 1948 at Birla House, New Delhi</li>
+                <li>Assassin: Nathuram Godse</li>
+                <li>Title: Father of the Nation (Rashtra Pita)</li>
+                <li>Nehru's words: "The light has gone out of our lives…" — broadcast on AIR</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">26 Jan 1950</span>
+            <span class="event-title">Constitution of India Comes into Force</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="ssb-key">SSB Key Event</div>
+          <div class="event-detail">
+            <p class="event-body">After nearly three years of deliberations by the Constituent Assembly (December 1946 – November 1949), the Indian Constitution came into force on 26 January 1950 — chosen to honour the 1930 Independence Day declaration. India became a Sovereign Democratic Republic. Dr. B.R. Ambedkar was the chief architect of the Constitution. Universal adult franchise was granted to all Indians above 21.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Constitution adopted: 26 November 1949; enforced: 26 January 1950</li>
+                <li>Dr. B.R. Ambedkar: Chairman of Drafting Committee — "Father of the Constitution"</li>
+                <li>Universal Adult Franchise: all Indians above 21 could vote (lowered to 18 in 1989)</li>
+                <li>Abolished untouchability, guaranteed equality before law</li>
+                <li>Special provisions for Scheduled Castes and Scheduled Tribes</li>
+                <li>India declared a Sovereign Socialist Secular Democratic Republic</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1950–56</span>
+            <span class="event-title">Planning Commission & Five Year Plans</span>
+            <span class="event-tag tag-economic">Economic</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">In 1950, the Government of India set up the Planning Commission under PM Nehru to design economic development policy. India adopted a "mixed economy" model (both state and private sector). The First Five Year Plan (1951–56) focused on agriculture. The Second Five Year Plan (1956–61) prioritised heavy industry — steel plants at Bhilai, Durgapur, and Rourkela were established.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Planning Commission set up: 1950, under PM Nehru</li>
+                <li>Mixed economy: both State and private sector involvement</li>
+                <li>First Five Year Plan (1951–56): focus on agriculture</li>
+                <li>Second Five Year Plan (1956–61): heavy industry — Bhilai, Durgapur, Rourkela steel plants</li>
+                <li>Planning Commission replaced by NITI Aayog in 2015</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1953–56</span>
+            <span class="event-title">Linguistic Reorganisation of States</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">Potti Sriramulu died on a hunger fast demanding a separate Andhra state for Telugu speakers (15 December 1952). Widespread protests forced the government to create Andhra State on 1 October 1953 — the first linguistically organised state. The States Reorganisation Commission (1955) recommended redrawing state boundaries on linguistic lines. The States Reorganisation Act (1956) reorganised India's states.</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Potti Sriramulu: died 15 December 1952 on fast for Telugu state</li>
+                <li>Andhra State formed: 1 October 1953 — first linguistic state</li>
+                <li>States Reorganisation Act, 1956 — reorganised all states on linguistic basis</li>
+                <li>Punjab divided into Punjab and Haryana in 1966</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-card">
+          <div class="event-top">
+            <span class="event-year">1955</span>
+            <span class="event-title">Bandung Conference — Non-Alignment</span>
+            <span class="event-tag tag-political">Political</span>
+          </div>
+          <div class="event-detail">
+            <p class="event-body">India under Nehru adopted a foreign policy of Non-Alignment — refusing to join either the US-led NATO or the Soviet-led Warsaw Pact. At the Bandung Conference (1955), 29 Asian and African nations met in Indonesia under Nehru, Nasser (Egypt), Sukarno (Indonesia), Nkrumah (Ghana) and others to oppose colonialism and stay out of Cold War blocs. This became the Non-Aligned Movement (NAM).</p>
+            <div class="ssb-points">
+              <div class="ssb-points-title">Key Points for SSB</div>
+              <ul>
+                <li>Non-Alignment: India's foreign policy — neither US nor Soviet bloc</li>
+                <li>Bandung Conference: April 1955, Indonesia — 29 Afro-Asian nations</li>
+                <li>Key architects: Nehru (India), Nasser (Egypt), Tito (Yugoslavia)</li>
+                <li>Panchsheel (Five Principles of Peaceful Coexistence) — Nehru & Zhou Enlai, 1954</li>
+                <li>Krishna Menon led India's delegation to UN 1952–62</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 6: QUICK QUIZ -->
+  <section class="era-section" id="quiz">
+    <div class="era-hdr">
+      <div>
+        <div class="era-title">Quick Revision Quiz</div>
+        <span class="era-years">Test Your SSB Readiness</span>
+      </div>
+      <div class="era-hdr-line"></div>
+    </div>
+
+    <div class="quiz-section">
+      <div class="quiz-title">⚡ 10 MCQs — Modern Indian History</div>
+
+      <div class="quiz-q" id="q1">
+        <p>1. The Battle of Plassey (1757) was fought between Robert Clive and:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">Mir Qasim</button>
+          <button class="quiz-opt" data-correct="true">Sirajuddaulah</button>
+          <button class="quiz-opt" data-correct="false">Tipu Sultan</button>
+          <button class="quiz-opt" data-correct="false">Bahadur Shah Zafar</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q2">
+        <p>2. The Company became the Diwan of Bengal in:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">1757</button>
+          <button class="quiz-opt" data-correct="false">1764</button>
+          <button class="quiz-opt" data-correct="true">1765</button>
+          <button class="quiz-opt" data-correct="false">1773</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q3">
+        <p>3. The Doctrine of Lapse was implemented by:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">Lord Cornwallis</button>
+          <button class="quiz-opt" data-correct="false">Lord Wellesley</button>
+          <button class="quiz-opt" data-correct="false">Lord Bentinck</button>
+          <button class="quiz-opt" data-correct="true">Lord Dalhousie</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q4">
+        <p>4. The Jallianwala Bagh massacre occurred on:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">6 April 1919</button>
+          <button class="quiz-opt" data-correct="true">13 April 1919</button>
+          <button class="quiz-opt" data-correct="false">6 April 1930</button>
+          <button class="quiz-opt" data-correct="false">13 April 1920</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q5">
+        <p>5. Gandhi marched from Sabarmati to Dandi, a distance of approximately:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">100 miles</button>
+          <button class="quiz-opt" data-correct="false">150 miles</button>
+          <button class="quiz-opt" data-correct="true">240 miles</button>
+          <button class="quiz-opt" data-correct="false">300 miles</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q6">
+        <p>6. Bhagat Singh was executed on:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">8 April 1929</button>
+          <button class="quiz-opt" data-correct="false">17 December 1928</button>
+          <button class="quiz-opt" data-correct="true">23 March 1931</button>
+          <button class="quiz-opt" data-correct="false">30 January 1931</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q7">
+        <p>7. The Quit India Movement was launched in:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">1939</button>
+          <button class="quiz-opt" data-correct="false">1940</button>
+          <button class="quiz-opt" data-correct="true">1942</button>
+          <button class="quiz-opt" data-correct="false">1945</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q8">
+        <p>8. The Chief Architect (Chairman of Drafting Committee) of the Indian Constitution was:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">Jawaharlal Nehru</button>
+          <button class="quiz-opt" data-correct="false">Rajendra Prasad</button>
+          <button class="quiz-opt" data-correct="true">Dr. B.R. Ambedkar</button>
+          <button class="quiz-opt" data-correct="false">Sardar Patel</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q9">
+        <p>9. The first linguistic state to be formed in India was:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">Karnataka</button>
+          <button class="quiz-opt" data-correct="true">Andhra (1953)</button>
+          <button class="quiz-opt" data-correct="false">Kerala</button>
+          <button class="quiz-opt" data-correct="false">Maharashtra</button>
+        </div>
+      </div>
+
+      <div class="quiz-q" id="q10">
+        <p>10. India's foreign policy of Non-Alignment was principally associated with:</p>
+        <div class="quiz-options">
+          <button class="quiz-opt" data-correct="false">Indira Gandhi</button>
+          <button class="quiz-opt" data-correct="false">Sardar Patel</button>
+          <button class="quiz-opt" data-correct="true">Jawaharlal Nehru</button>
+          <button class="quiz-opt" data-correct="false">Rajiv Gandhi</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>Modern Indian History for SSB Exam &nbsp;|&nbsp; Based on NCERT Class 8 — Our Pasts III &nbsp;|&nbsp; Click events to expand key points</footer>
+
+<script>
+  // Era nav
+  document.querySelectorAll('.era-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.era-section').forEach(s => s.classList.remove('visible'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.era).classList.add('visible');
+    });
+  });
+
+  // Event expand
+  document.querySelectorAll('.event').forEach(ev => {
+    ev.addEventListener('click', () => {
+      const wasOpen = ev.classList.contains('open');
+      document.querySelectorAll('.event.open').forEach(e => e.classList.remove('open'));
+      if (!wasOpen) ev.classList.add('open');
+    });
+  });
+
+  // Quiz
+  document.querySelectorAll('.quiz-q').forEach(qEl => {
+    qEl.querySelectorAll('.quiz-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (qEl.dataset.answered) return;
+        qEl.dataset.answered = true;
+        const isCorrect = opt.dataset.correct === 'true';
+        if (isCorrect) {
+          opt.classList.add('correct');
+        } else {
+          opt.classList.add('wrong');
+          qEl.querySelectorAll('.quiz-opt[data-correct="true"]').forEach(o => o.classList.add('correct'));
+        }
+        qEl.querySelectorAll('.quiz-opt').forEach(o => o.style.pointerEvents = 'none');
+      });
+    });
+  });
+</script>
+</body>
+</html>
