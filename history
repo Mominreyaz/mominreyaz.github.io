@@ -1,1 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern History Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --ink: #1a1209;
+    --parchment: #f5efe0;
+    --aged: #e8dcc8;
+    --sepia: #8b6914;
+    --rust: #9e3a1e;
+    --moss: #3d5a3e;
+    --slate: #3a4a5c;
+    --gold: #c9a227;
+    --line: #c4a96a;
+  }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(139,105,20,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(158,58,30,0.06) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  header {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), var(--sepia), var(--gold), transparent);
+    margin: 2rem auto 0;
+    max-width: 700px;
+  }
+
+  .header-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sepia);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--sepia);
+  }
+
+  .subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--sepia);
+    margin-top: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* ERA TABS */
+  .era-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 2rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,239,224,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .era-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 1.5px solid currentColor;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-radius: 2px;
+  }
+
+  .era-btn[data-era="revolution"]  { color: var(--rust); }
+  .era-btn[data-era="imperialism"] { color: var(--sepia); }
+  .era-btn[data-era="wars"]        { color: var(--slate); }
+  .era-btn[data-era="coldwar"]     { color: var(--moss); }
+  .era-btn[data-era="modern"]      { color: var(--ink); }
+
+  .era-btn.active,
+  .era-btn:hover {
+    color: var(--parchment) !important;
+  }
+  .era-btn[data-era="revolution"].active,  .era-btn[data-era="revolution"]:hover  { background: var(--rust); border-color: var(--rust); }
+  .era-btn[data-era="imperialism"].active, .era-btn[data-era="imperialism"]:hover { background: var(--sepia); border-color: var(--sepia); }
+  .era-btn[data-era="wars"].active,        .era-btn[data-era="wars"]:hover        { background: var(--slate); border-color: var(--slate); }
+  .era-btn[data-era="coldwar"].active,     .era-btn[data-era="coldwar"]:hover     { background: var(--moss); border-color: var(--moss); }
+  .era-btn[data-era="modern"].active,      .era-btn[data-era="modern"]:hover      { background: var(--ink); border-color: var(--ink); }
+
+  /* TIMELINE */
+  .timeline-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+    position: relative;
+  }
+
+  .era-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .era-section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .era-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 0.3rem;
+    padding-left: 1.5rem;
+    border-left: 4px solid var(--gold);
+  }
+
+  .era-span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--sepia);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+    display: block;
+  }
+
+  /* Vertical line */
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    top: 0;
+    bottom: 0;
+    width: 1.5px;
+    background: linear-gradient(to bottom, var(--gold), var(--line), var(--aged));
+  }
+
+  .event {
+    position: relative;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .event:hover { transform: translateX(4px); }
+
+  .event::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 0.55rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--parchment);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .event:hover::before,
+  .event.open::before {
+    background: var(--gold);
+    transform: scale(1.3);
+  }
+
+  .event-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .event-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--sepia);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .event-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-left: auto;
+  }
+
+  .tag-war      { background: rgba(58,74,92,0.12);  color: var(--slate); }
+  .tag-political{ background: rgba(139,105,20,0.12); color: var(--sepia); }
+  .tag-social   { background: rgba(61,90,62,0.12);  color: var(--moss);  }
+  .tag-science  { background: rgba(158,58,30,0.12); color: var(--rust);  }
+  .tag-economic { background: rgba(26,18,9,0.1);    color: var(--ink);   }
+
+  .event-detail {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 1rem 1.2rem;
+    background: var(--aged);
+    border-left: 3px solid var(--gold);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #3a2e1a;
+    border-radius: 0 4px 4px 0;
+  }
+  .event.open .event-detail { display: block; animation: fadeIn 0.25s ease; }
+
+  /* Divider between eras in all view */
+  .era-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--line), transparent);
+    margin: 3rem 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--sepia);
+    border-top: 1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">A Chronicle of our World</div>
+  <h1>Modern <em>History</em></h1>
+  <p class="subtitle">From Revolution to the Digital Age &mdash; 1750s to Present</p>
+</header>
+
+<nav class="era-nav">
+  <button class="era-btn active" data-era="revolution">Age of Revolution</button>
+  <button class="era-btn" data-era="imperialism">Imperialism & Industry</button>
+  <button class="era-btn" data-era="wars">World Wars</button>
+  <button class="era-btn" data-era="coldwar">Cold War Era</button>
+  <button class="era-btn" data-era="modern">Contemporary World</button>
+</nav>
+
+<div class="timeline-container">
+
+  <!-- ERA 1 -->
+  <section class="era-section visible" id="revolution">
+    <h2 class="era-heading">Age of Revolution</h2>
+    <span class="era-span">1750s — 1848</span>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1776</span>
+          <span class="event-title">American Declaration of Independence</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Thirteen American colonies declared independence from Britain, establishing the United States. Authored primarily by Thomas Jefferson, the document enshrined Enlightenment ideals of liberty, equality, and government by consent — inspiring revolutions worldwide.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1789</span>
+          <span class="event-title">French Revolution Begins</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">The storming of the Bastille on July 14 ignited a decade of radical political and societal transformation. The monarchy was abolished, the First French Republic declared, and the ideals of Liberté, Égalité, Fraternité spread across Europe, reshaping the concept of the nation-state.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1799</span>
+          <span class="event-title">Napoleon Bonaparte Seizes Power</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Through the coup of 18 Brumaire, Napoleon ended the French Directory and eventually crowned himself Emperor in 1804. His Napoleonic Code standardised law across France and conquered territories, laying foundations for modern legal systems still in use today.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1804</span>
+          <span class="event-title">Haitian Revolution — First Black Republic</span>
+          <span class="event-tag tag-social">Social</span>
+        </div>
+        <div class="event-detail">Led by Toussaint Louverture and Jean-Jacques Dessalines, enslaved people in Saint-Domingue defeated French colonial forces. Haiti became the first Black republic and the only nation born from a successful slave revolt, a landmark moment in the history of human freedom.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">~1760–1840</span>
+          <span class="event-title">Industrial Revolution (Britain)</span>
+          <span class="event-tag tag-economic">Economic</span>
+        </div>
+        <div class="event-detail">Beginning in Britain, the transition from agrarian economies to industrial manufacturing transformed global society. Steam power, mechanised textile production, railways, and iron-working created urban working classes and set the stage for modern capitalism.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1815</span>
+          <span class="event-title">Congress of Vienna</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Following Napoleon's defeat, European powers redrew the continent's map at Vienna. The settlement established a "Concert of Europe" — a balance-of-power system that maintained relative peace for nearly a century and shaped the concept of international diplomacy.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1848</span>
+          <span class="event-title">Revolutions Sweep Europe</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Known as the "Springtime of Nations," uprisings erupted across France, Germany, Austria-Hungary, and Italy. Driven by nationalist and liberal demands, most revolutions were suppressed — but they permanently altered the political landscape, accelerating the eventual unification of Germany and Italy.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 2 -->
+  <section class="era-section" id="imperialism">
+    <h2 class="era-heading">Imperialism & Industry</h2>
+    <span class="era-span">1850s — 1914</span>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1857</span>
+          <span class="event-title">Indian Rebellion Against British Rule</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">A widespread uprising against the British East India Company — triggered by the introduction of greased cartridges but rooted in deep grievances — swept across northern India. Though suppressed, it led directly to the dissolution of the Company and the Crown's direct control of India in 1858.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1861–1865</span>
+          <span class="event-title">American Civil War</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">The deadliest conflict in American history, fought over slavery and states' rights. President Lincoln's Emancipation Proclamation (1863) transformed the war's moral purpose. The Union victory preserved the United States and led to the abolition of slavery via the 13th Amendment.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1869</span>
+          <span class="event-title">Suez Canal Opens</span>
+          <span class="event-tag tag-economic">Economic</span>
+        </div>
+        <div class="event-detail">The 193 km canal connecting the Mediterranean to the Red Sea dramatically shortened trade routes between Europe and Asia, cementing British dominance of global commerce and making Egypt a strategic prize that would be contested for over a century.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1871</span>
+          <span class="event-title">Unification of Germany & Italy</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Under Chancellor Bismarck, Prussia unified the German states following the Franco-Prussian War; the German Empire was proclaimed at Versailles. Italy too was unified under King Victor Emmanuel II. Two new great powers fundamentally shifted Europe's balance.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1884–85</span>
+          <span class="event-title">Berlin Conference — Scramble for Africa</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">European powers formally divided Africa among themselves with no African representation. Within 30 years, over 90% of the continent was under colonial rule. Arbitrary borders drawn at Berlin created fractures whose consequences are still felt today.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1903</span>
+          <span class="event-title">Wright Brothers' First Flight</span>
+          <span class="event-tag tag-science">Science</span>
+        </div>
+        <div class="event-detail">At Kitty Hawk, North Carolina, Orville and Wilbur Wright achieved the first powered, sustained, and controlled aeroplane flight. Within two decades, aviation would reshape warfare, commerce, and human geography.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 3 -->
+  <section class="era-section" id="wars">
+    <h2 class="era-heading">World Wars & Depression</h2>
+    <span class="era-span">1914 — 1945</span>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1914–1918</span>
+          <span class="event-title">World War I</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">Sparked by the assassination of Archduke Franz Ferdinand, the "Great War" engulfed Europe and beyond. Trench warfare, chemical weapons, and industrial-scale slaughter left 17 million dead. The war dissolved four empires — Ottoman, Austro-Hungarian, German, and Russian — remaking the world map.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1917</span>
+          <span class="event-title">Russian Revolution</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Two revolutions toppled the Tsar and brought Lenin's Bolsheviks to power. The resulting Soviet Union became the world's first communist state — establishing a new ideological axis of conflict that would define the 20th century.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1929</span>
+          <span class="event-title">The Great Depression</span>
+          <span class="event-tag tag-economic">Economic</span>
+        </div>
+        <div class="event-detail">The Wall Street Crash triggered the worst global economic crisis of the 20th century. Unemployment soared, banks collapsed, and international trade collapsed by 65%. The crisis destabilised democracies and fuelled the rise of fascism in Europe.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1933</span>
+          <span class="event-title">Hitler Becomes Chancellor of Germany</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Adolf Hitler was appointed Chancellor on January 30. Within months he had dismantled the Weimar Republic and established a totalitarian Nazi dictatorship. His regime would pursue a genocidal ideology that plunged the world into a second catastrophic war.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1939–1945</span>
+          <span class="event-title">World War II</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">The deadliest conflict in human history, killing an estimated 70–85 million people. Nazi Germany's invasion of Poland, the Holocaust, Japan's Pacific campaign, and the Allied response reshaped every continent. The war ended with atomic bombs on Hiroshima and Nagasaki and ushered in the nuclear age.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1945</span>
+          <span class="event-title">United Nations Founded</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Fifty-one nations signed the UN Charter in San Francisco, creating an international body to prevent future wars, protect human rights, and facilitate cooperation. The Universal Declaration of Human Rights followed in 1948.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 4 -->
+  <section class="era-section" id="coldwar">
+    <h2 class="era-heading">Cold War & Decolonisation</h2>
+    <span class="era-span">1945 — 1991</span>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1947</span>
+          <span class="event-title">Indian Independence & Partition</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">After decades of struggle under Gandhi, Nehru, and countless others, Britain granted independence to India and Pakistan. The partition along religious lines caused one of history's largest forced migrations — 10–20 million displaced and up to a million dead in communal violence.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1949</span>
+          <span class="event-title">Mao Proclaims People's Republic of China</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">After decades of civil war, Mao Zedong's Communist Party defeated Chiang Kai-shek's Nationalists. The founding of the PRC brought a quarter of humanity under communist rule and created a new major actor in the Cold War geopolitical order.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1957</span>
+          <span class="event-title">Sputnik — Space Age Begins</span>
+          <span class="event-tag tag-science">Science</span>
+        </div>
+        <div class="event-detail">The Soviet Union launched the first artificial satellite, triggering the Space Race. Within 12 years, the US landed astronauts on the Moon. The competition produced satellite communications, GPS, and the global internet infrastructure we rely on today.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1955–1975</span>
+          <span class="event-title">Vietnam War</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">A defining Cold War conflict: North Vietnamese and Viet Cong forces against South Vietnam backed by the US. Over 3 million died. The US withdrawal in 1975 and communist reunification marked a pivotal defeat that reshaped American foreign policy and domestic society.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1960s</span>
+          <span class="event-title">African Independence Wave</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">Dubbed the "Year of Africa," 1960 alone saw 17 nations gain independence. By the end of the decade, most of sub-Saharan Africa had shed colonial rule. The process was uneven — some peaceful, some bloody — and the legacies of colonialism posed enormous challenges to new nations.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1989</span>
+          <span class="event-title">Fall of the Berlin Wall</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">On November 9, East Germany opened its borders. Jubilant crowds tore down the Wall that had divided Berlin — and symbolised the Iron Curtain — since 1961. Within two years, the Soviet Union itself dissolved, ending the Cold War and the bipolar world order.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ERA 5 -->
+  <section class="era-section" id="modern">
+    <h2 class="era-heading">Contemporary World</h2>
+    <span class="era-span">1991 — Present</span>
+    <div class="timeline">
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1991</span>
+          <span class="event-title">Dissolution of the Soviet Union</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">On December 25, Gorbachev resigned and the USSR formally ceased to exist, giving way to 15 independent states. The end of the Cold War left the United States as the world's sole superpower and opened a new era of globalisation — and new conflicts.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">1994</span>
+          <span class="event-title">End of Apartheid — Mandela Elected</span>
+          <span class="event-tag tag-social">Social</span>
+        </div>
+        <div class="event-detail">South Africa held its first fully democratic elections on April 27. Nelson Mandela, freed after 27 years in prison, became the country's first Black president. The peaceful transition — achieved through decades of resistance and negotiation — was hailed as a miracle of reconciliation.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">2001</span>
+          <span class="event-title">September 11 Attacks</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">Al-Qaeda hijackers crashed planes into the World Trade Center, Pentagon, and a Pennsylvania field, killing nearly 3,000 people. The attacks reshaped global security, launched the "War on Terror," and led to prolonged US-led wars in Afghanistan and Iraq with far-reaching consequences.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">2008</span>
+          <span class="event-title">Global Financial Crisis</span>
+          <span class="event-tag tag-economic">Economic</span>
+        </div>
+        <div class="event-detail">The collapse of the US housing market and Lehman Brothers triggered the worst global recession since the 1930s. Governments spent trillions on bailouts, austerity followed in Europe, inequality widened, and populist movements rose across the democratic world.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">2010–2012</span>
+          <span class="event-title">Arab Spring</span>
+          <span class="event-tag tag-political">Political</span>
+        </div>
+        <div class="event-detail">A wave of pro-democracy protests swept the Arab world, toppling governments in Tunisia, Egypt, Libya, and Yemen. While Tunisia achieved a democratic transition, others descended into civil war or authoritarian crackdowns — exposing both the power of popular uprisings and their fragility.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">2020–2023</span>
+          <span class="event-title">COVID-19 Pandemic</span>
+          <span class="event-tag tag-science">Science</span>
+        </div>
+        <div class="event-detail">A novel coronavirus originating in Wuhan, China spread globally, killing over 7 million people (excess deaths far higher). Lockdowns, vaccine development at unprecedented speed, economic disruption, and geopolitical recriminations defined this generational crisis that reshaped how the world works, learns, and governs.</div>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <span class="event-year">2022–Present</span>
+          <span class="event-title">Russia Invades Ukraine</span>
+          <span class="event-tag tag-war">War</span>
+        </div>
+        <div class="event-detail">Russia's full-scale invasion on February 24 triggered Europe's largest land war since 1945. The conflict has displaced millions, reshaped European security (including NATO expansion), caused global food and energy crises, and deepened fault lines in the international order.</div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>Click any event to expand · Select an era above to navigate</footer>
+
+<script>
+  // Era switching
+  document.querySelectorAll('.era-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.era-section').forEach(s => s.classList.remove('visible'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.era).classList.add('visible');
+    });
+  });
+
+  // Event expand/collapse
+  document.querySelectorAll('.event').forEach(evt => {
+    evt.addEventListener('click', () => {
+      const wasOpen = evt.classList.contains('open');
+      document.querySelectorAll('.event.open').forEach(e => e.classList.remove('open'));
+      if (!wasOpen) evt.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
