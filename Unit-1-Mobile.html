@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 – Nature and Scope of Cost Accounting</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #faf7f2;
+    --accent: #c0392b;
+    --gold: #b8860b;
+    --muted: #6b5c4e;
+    --rule: #d4c9b8;
+    --highlight: #fff8e1;
+    --card-bg: #fff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.75;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 2rem 1.25rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 40px,
+      rgba(255,255,255,.03) 40px, rgba(255,255,255,.03) 80px
+    );
+  }
+  .course-tag {
+    display: inline-block;
+    font-family: 'Source Serif 4', serif;
+    font-size: .7rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: .25rem .75rem;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .site-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 5vw, 2.4rem);
+    line-height: 1.2;
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto .75rem;
+  }
+  .site-header p {
+    font-size: .85rem;
+    color: rgba(255,255,255,.55);
+    position: relative;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--card-bg);
+    border-left: 4px solid var(--accent);
+    margin: 1.5rem 1rem;
+    border-radius: 0 6px 6px 0;
+    padding: 1.25rem 1.25rem 1.25rem 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .toc h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: .75rem;
+    letter-spacing: .04em;
+  }
+  .toc ol {
+    padding-left: 1.2rem;
+  }
+  .toc li {
+    font-size: .88rem;
+    margin-bottom: .3rem;
+  }
+  .toc a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--rule);
+    transition: color .2s;
+  }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    margin-top: 2.5rem;
+  }
+
+  /* Section heading */
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: .6rem;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid var(--rule);
+  }
+  .section-heading .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .section-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+
+  /* Sub-section heading */
+  .sub-heading {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 1.5rem 0 .6rem;
+    padding-left: .75rem;
+    border-left: 3px solid var(--gold);
+  }
+
+  p { margin-bottom: .9rem; font-size: .97rem; }
+
+  /* ── NUMBERED LIST ── */
+  .num-list {
+    counter-reset: item;
+    list-style: none;
+    padding: 0;
+    margin-bottom: .9rem;
+  }
+  .num-list li {
+    counter-increment: item;
+    display: flex;
+    gap: .75rem;
+    margin-bottom: .65rem;
+    font-size: .93rem;
+    align-items: flex-start;
+  }
+  .num-list li::before {
+    content: counter(item);
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: .75rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: .1rem;
+  }
+  .num-list li strong {
+    color: var(--ink);
+  }
+
+  /* ── BULLET LIST ── */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: .9rem;
+  }
+  .bullet-list li {
+    display: flex;
+    gap: .6rem;
+    margin-bottom: .5rem;
+    font-size: .93rem;
+    align-items: flex-start;
+  }
+  .bullet-list li::before {
+    content: '◆';
+    color: var(--gold);
+    font-size: .55rem;
+    flex-shrink: 0;
+    margin-top: .45rem;
+  }
+
+  /* ── DEFINITION BOX ── */
+  .def-box {
+    background: var(--highlight);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    font-size: .93rem;
+    font-style: italic;
+    color: #3a2e00;
+  }
+  .def-box strong {
+    display: block;
+    font-style: normal;
+    font-size: .8rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .35rem;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .85rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .compare-table thead {
+    background: var(--ink);
+    color: #fff;
+  }
+  .compare-table th {
+    padding: .7rem .85rem;
+    text-align: left;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: .8rem;
+    letter-spacing: .04em;
+  }
+  .compare-table th:first-child { color: #ffcdd2; }
+  .compare-table th:last-child { color: #b3e5fc; }
+  .compare-table td {
+    padding: .65rem .85rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+    line-height: 1.5;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #f9f6f0; }
+  .compare-table .row-num {
+    width: 2rem;
+    color: var(--muted);
+    font-size: .8rem;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  /* ── CALLOUT CARD ── */
+  .callout {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.1rem 1.15rem;
+    margin: 1.25rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    border-top: 3px solid var(--accent);
+  }
+  .callout .callout-title {
+    font-family: 'Playfair Display', serif;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: .5rem;
+    letter-spacing: .03em;
+  }
+  .callout p { margin-bottom: 0; font-size: .9rem; }
+
+  /* ── KEYWORDS GRID ── */
+  .keyword-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .65rem;
+    margin: 1rem 0;
+  }
+  @media (min-width: 480px) {
+    .keyword-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .keyword-card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: .7rem .85rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  .keyword-card .kw {
+    font-weight: 700;
+    font-size: .9rem;
+    color: var(--accent);
+    display: block;
+    margin-bottom: .2rem;
+  }
+  .keyword-card .def {
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  /* ── CHECK YOUR PROGRESS ── */
+  .progress-box {
+    background: #f0f4ff;
+    border-left: 4px solid #3f51b5;
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.1rem;
+    margin: 1.5rem 0;
+  }
+  .progress-box .pb-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #3f51b5;
+    margin-bottom: .65rem;
+  }
+  .progress-box ol {
+    padding-left: 1.2rem;
+    font-size: .9rem;
+  }
+  .progress-box li { margin-bottom: .4rem; }
+
+  /* ── TERMINAL QUESTIONS ── */
+  .tq-list {
+    counter-reset: tq;
+    list-style: none;
+    padding: 0;
+  }
+  .tq-list li {
+    counter-increment: tq;
+    display: flex;
+    gap: .75rem;
+    margin-bottom: .75rem;
+    font-size: .93rem;
+    align-items: flex-start;
+  }
+  .tq-list li::before {
+    content: 'Q' counter(tq);
+    background: var(--ink);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: .7rem;
+    min-width: 2rem;
+    height: 1.6rem;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: .05rem;
+    letter-spacing: .05em;
+  }
+
+  /* ── OBJECTIVES PILLS ── */
+  .obj-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: .75rem 0 1rem;
+  }
+  .obj-pill {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    padding: .35rem .85rem;
+    font-size: .82rem;
+    color: var(--muted);
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,.4);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: .78rem;
+    letter-spacing: .04em;
+  }
+
+  /* ── STICKY BACK TO TOP ── */
+  #top-btn {
+    position: fixed;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,.25);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: transform .2s;
+  }
+  #top-btn:hover { transform: translateY(-2px); }
+  #top-btn.visible { display: flex; }
+
+  /* ── SCROLL PROGRESS ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 200;
+    transition: width .1s;
+  }
+
+  @media (min-width: 600px) {
+    main { padding: 0 1.5rem 4rem; }
+    .toc { margin: 1.5rem 1.5rem; }
+    body { font-size: 17px; }
+  }
+</style>
+</head>
+<body id="top">
+
+<div id="progress-bar"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="course-tag">BCOC-138 · Cost Accounting</div>
+  <h1>Unit 1: Nature &amp; Scope of Cost Accounting</h1>
+  <p>IGNOU Bachelor of Commerce · Basic Concepts</p>
+</header>
+
+<!-- TABLE OF CONTENTS -->
+<nav class="toc" aria-label="Table of Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s10">1.0 Objectives</a></li>
+    <li><a href="#s11">1.1 Introduction</a></li>
+    <li><a href="#s12">1.2 Need for Costing</a></li>
+    <li><a href="#s13">1.3 Definitions</a></li>
+    <li><a href="#s14">1.4 Objects of Cost Accounting</a></li>
+    <li><a href="#s15">1.5 Cost vs Financial Accounting</a></li>
+    <li><a href="#s16">1.6 Advantages</a></li>
+    <li><a href="#s17">1.7 Installation of a Costing System</a></li>
+    <li><a href="#s18">1.8 Summary</a></li>
+    <li><a href="#s19">1.9 Key Words</a></li>
+    <li><a href="#s111">1.11 Terminal Questions</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ── 1.0 OBJECTIVES ── -->
+<section class="section" id="s10">
+  <div class="section-heading">
+    <span class="num">1.0</span>
+    <h2>Objectives</h2>
+  </div>
+  <p>After studying this unit, you should be able to:</p>
+  <div class="obj-grid">
+    <span class="obj-pill">Describe the need for costing</span>
+    <span class="obj-pill">Define costing &amp; cost accounting</span>
+    <span class="obj-pill">Specify objects of costing</span>
+    <span class="obj-pill">Differentiate cost vs financial accounting</span>
+    <span class="obj-pill">Explain importance of costing</span>
+    <span class="obj-pill">Understand installation of costing systems</span>
+  </div>
+</section>
+
+<!-- ── 1.1 INTRODUCTION ── -->
+<section class="section" id="s11">
+  <div class="section-heading">
+    <span class="num">1.1</span>
+    <h2>Introduction</h2>
+  </div>
+  <p>Cost Accounting is a specialised branch of accounting. It is concerned with classifying, recording and appropriate allocation of expenditure for the determination of costs of products and services and the ascertainment of profitability. It also embraces the preparation of periodical statements and reports for purposes of controlling costs and managerial decision-making.</p>
+  <p>In this unit, we shall introduce you to the nature and scope of cost accounting and discuss in detail: the need for cost accounting, its definition and objects, the difference between cost accounting and financial accounting, the advantages of cost accounting, and the installation of a costing system in an organisation.</p>
+</section>
+
+<!-- ── 1.2 NEED FOR COSTING ── -->
+<section class="section" id="s12">
+  <div class="section-heading">
+    <span class="num">1.2</span>
+    <h2>Need for Costing</h2>
+  </div>
+  <p>Every economic activity, particularly an activity involved in the production of goods or in rendering service, involves some expenditure. The major purpose of such activities in a business enterprise is to earn profit. It is, therefore, necessary that all three elements of the transaction — <strong>cost, profit and price</strong> — are clearly identified.</p>
+
+  <div class="def-box">
+    <strong>Example</strong>
+    A shoe factory: Material ₹20 + Labour ₹30 + Overheads ₹25 = <strong>Cost ₹75</strong>. Selling price ₹100. <strong>Profit = ₹25 per pair.</strong>
+  </div>
+
+  <p>Various deficiencies and limitations of financial accounting gave rise to the need for cost accounting.</p>
+
+  <h3 class="sub-heading">1.2.1 Limitations of Financial Accounting</h3>
+  <ol class="num-list">
+    <li>Does not provide <strong>detailed operating information</strong> for each department, process, or product. It only provides information for the enterprise as a whole.</li>
+    <li>Does not classify expenses into <strong>direct and indirect</strong> or fixed and variable.</li>
+    <li>Does not set up a proper <strong>system of control</strong> over materials and labour — wastages go unchecked.</li>
+    <li>Does not establish <strong>standards or norms</strong> against which different cost items can be compared.</li>
+    <li>Does not provide adequate costing information for <strong>fixation of selling price</strong>.</li>
+    <li>Contains only <strong>historical cost information</strong> compiled at year-end — frequent cost data unavailable.</li>
+    <li>Since product-wise cost and profit information is not available, <strong>analysis of causes for profit or loss</strong> cannot be effectively done.</li>
+  </ol>
+
+  <h3 class="sub-heading">1.2.2 Costing and the Economy</h3>
+  <ol class="num-list">
+    <li><strong>Global Competition:</strong> Only producers who exercise stringent cost control and follow sound pricing policies can survive.</li>
+    <li><strong>Limited Resources:</strong> Acute scarcity of resources requires effective and economic utilisation by curtailing wastages.</li>
+    <li><strong>Complex Management:</strong> Industrial management demands attention and action at every stage of operation.</li>
+    <li><strong>Fast Decisions:</strong> Correct and quick decisions require adequate information supported by reliable data.</li>
+    <li><strong>Special Responsibility:</strong> Every business has social responsibility — proper quality, reasonable prices, regular supply.</li>
+    <li><strong>Optimum Profit:</strong> Business ventures aim at maximisation of profit through efficient financial, personnel, production and marketing activities.</li>
+  </ol>
+</section>
+
+<!-- ── 1.3 DEFINITIONS ── -->
+<section class="section" id="s13">
+  <div class="section-heading">
+    <span class="num">1.3</span>
+    <h2>Definitions of Costing and Cost Accounting</h2>
+  </div>
+
+  <div class="def-box">
+    <strong>Costing (Wheldon)</strong>
+    The classifying, recording and appropriate allocation of expenditure for the determination of the costs of products or services; and for the presentation suitably of arranged data for purposes of control and guidance of management.
+  </div>
+
+  <div class="def-box">
+    <strong>Cost Accounting (ICMA, UK)</strong>
+    That part of management accounting which establishes budgets and standard costs and actual costs of operations, processes, departments or products and the analysis of variances, profitability or social use of funds.
+  </div>
+
+  <p>Thus, Cost Accounting:</p>
+  <ul class="bullet-list">
+    <li>Is a process of accounting for costs</li>
+    <li>Incorporates incomes and expenditures relating to production of goods or services</li>
+    <li>Provides statistical data on which future estimates may be prepared</li>
+    <li>Serves as a basis of ascertainment and control of costs</li>
+    <li>Involves the functions of analysis, recording, establishment of budgets and standards, comparison, and reporting</li>
+  </ul>
+
+  <div class="progress-box">
+    <div class="pb-title">✏ Check Your Progress — A</div>
+    <ol>
+      <li>What is Costing?</li>
+      <li>Define Cost Accounting.</li>
+      <li>Give four examples of expenses which constitute cost in a ready-made garments factory.</li>
+      <li>State whether True or False: (i) Cost Accounting gets its basic data for estimates from financial accounting. (ii) Cost Control means a lower amount of profit. (iii) Customers get more satisfaction when they buy goods at reasonable prices. (iv) If resources are scarce, cost of production will be low. (v) Cost Accounting is a comprehensive term which includes costing. (vi) Cost Accounting provides data for managerial decision-making.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 1.4 OBJECTS ── -->
+<section class="section" id="s14">
+  <div class="section-heading">
+    <span class="num">1.4</span>
+    <h2>Objects of Cost Accounting</h2>
+  </div>
+  <ol class="num-list">
+    <li>To <strong>ascertain the cost</strong> of products and services</li>
+    <li>To aid in <strong>fixation of selling price</strong> or quotation for tenders</li>
+    <li>To <strong>analyse and classify</strong> the different elements of cost</li>
+    <li>To <strong>identify causes of wastage</strong> and apply appropriate remedial action</li>
+    <li>To <strong>control costs</strong> by analysis and comparisons</li>
+    <li>To <strong>communicate cost information</strong> to management and facilitate decision-making</li>
+    <li>To <strong>judge relative efficiency</strong> of different departments, branches, products, units, plants and machinery</li>
+    <li>To <strong>produce cost statements</strong> as and when required for interim review or planning future activities</li>
+  </ol>
+</section>
+
+<!-- ── 1.5 DIFFERENCE ── -->
+<section class="section" id="s15">
+  <div class="section-heading">
+    <span class="num">1.5</span>
+    <h2>Difference: Cost Accounting vs Financial Accounting</h2>
+  </div>
+
+  <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th class="row-num">#</th>
+        <th>Cost Accounting</th>
+        <th>Financial Accounting</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-num">1</td>
+        <td>Ascertains the <strong>cost</strong> of goods or services</td>
+        <td>Presents the <strong>operational results and financial position</strong> of the business</td>
+      </tr>
+      <tr>
+        <td class="row-num">2</td>
+        <td>Serves the information needs of <strong>management</strong></td>
+        <td>Provides financial information to <strong>shareholders, creditors, employees &amp; society</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">3</td>
+        <td>Need not be followed by external <strong>audit</strong></td>
+        <td>Needs independent audit to ensure <strong>true and fair view</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">4</td>
+        <td>Classifies into <strong>material, labour, fixed &amp; variable overheads</strong></td>
+        <td>Classifies all receipts and payments into <strong>debit and credit</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">5</td>
+        <td>Shows expenses in <strong>cost sheet, process account</strong>, etc.</td>
+        <td>Consolidates into <strong>Trading &amp; P&amp;L Account</strong> and <strong>Balance Sheet</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">6</td>
+        <td>Does not form a basis for <strong>tax assessment</strong></td>
+        <td>Acts as a basis for determination of <strong>tax liabilities</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">7</td>
+        <td>Requires <strong>variance analysis</strong> (standard vs actual cost)</td>
+        <td>Records only <strong>actual transactions</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">8</td>
+        <td>Presents cost information at <strong>frequent intervals</strong></td>
+        <td>Presents financial information <strong>once or twice a year</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">9</td>
+        <td>Finds profit/loss on <strong>specific products, branches, departments</strong></td>
+        <td>Gives operational results of <strong>entire business</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">10</td>
+        <td>Maximises <strong>future efficiency</strong> using cost data</td>
+        <td>Uses accounting ratios to compute <strong>trends of previous period</strong></td>
+      </tr>
+      <tr>
+        <td class="row-num">11</td>
+        <td>Accounts for <strong>physical units</strong> such as labour hours, machine hours</td>
+        <td>Follows only <strong>monetary units</strong> for recording transactions</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Common Goal</div>
+    <p>Despite the differences, both systems have a common goal of continuously assisting the organisation they serve. In fact, the two are <strong>complementary</strong> to each other.</p>
+  </div>
+
+  <div class="progress-box">
+    <div class="pb-title">✏ Check Your Progress — B</div>
+    <ol>
+      <li>Give four main objects of costing.</li>
+      <li>State four major differences between Cost Accounting and Financial Accounting.</li>
+      <li>Fill in the blanks: (i) Cost Accounting can _____ the future cost of production. (ii) Cost Accounting gives information to management for the purpose of _____. (iii) Cost statements form part of the _____ accounts of a company. (iv) Costing is based on _____ figures. (v) Costing records must also be _____ by management.</li>
+      <li>List the major advantages of Cost Accounting.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 1.6 ADVANTAGES ── -->
+<section class="section" id="s16">
+  <div class="section-heading">
+    <span class="num">1.6</span>
+    <h2>Advantages of Cost Accounting</h2>
+  </div>
+  <p>An effective and organised system of costing helps:</p>
+  <ol class="num-list">
+    <li>Continuous flow of information regarding production, cost, materials, labour, stores, plant capacity, etc., which assist output planning.</li>
+    <li>Identification of unproductive activities, losses or wastage of resources, and obsolete machinery.</li>
+    <li>Compilation of correct and reliable cost data.</li>
+    <li>Preparation of <strong>budgets and business forecasts</strong>.</li>
+    <li>Measurement of efficiency through establishment of standards and analysis of variances.</li>
+    <li>Fixation of <strong>selling prices</strong>.</li>
+    <li>Cost comparisons between different periods, products, departments or firms.</li>
+    <li>Estimates of costs and revenue <strong>in advance</strong>.</li>
+    <li>Inventory control and periodical stock-taking.</li>
+    <li>Identification of <strong>idle capacity</strong> and cost of working below installed capacity.</li>
+    <li>Ascertainment of cost and profit more frequently.</li>
+    <li>Decisions and policies on: level of output, make or buy decisions, replacement of equipment, shutdown decisions, new product introduction, acceptance of special orders, replacement of labour with machinery.</li>
+  </ol>
+  <p>Because of these advantages, costing is now used not just in manufacturing but also in hospitals, transport undertakings, local authorities, offices, banks, and educational institutions.</p>
+</section>
+
+<!-- ── 1.7 INSTALLATION ── -->
+<section class="section" id="s17">
+  <div class="section-heading">
+    <span class="num">1.7</span>
+    <h2>Installation of a Costing System</h2>
+  </div>
+  <p>A single system of costing cannot suit every business. The principles and procedures of costing have to be applied in each organisation according to its own characteristics. Before introducing a system of costing, a <strong>preliminary investigation</strong> should assess the exact requirements in respect of: (a) product, (b) organisation, (c) manufacturing process, and (d) selling and distribution methods.</p>
+  <p>It should also ensure that:</p>
+  <ul class="bullet-list">
+    <li>The existing organisation is disturbed to the minimum</li>
+    <li>The system is implemented gradually</li>
+    <li>The costing process is compact and goes into meaningful details only</li>
+    <li>The procedure is simple and economical to operate</li>
+    <li>The system is able to generate periodical reports to various levels of management</li>
+  </ul>
+
+  <h3 class="sub-heading">1.7.1 Possible Difficulties</h3>
+  <ol class="num-list">
+    <li>Inadequate support from top management and opposition from some officers</li>
+    <li>Resistance from staff associated with the financial accounting system</li>
+    <li>Resentment at other levels due to additional work expected</li>
+    <li>Shortage of trained and qualified staff to handle the new system</li>
+    <li>Heavy costs involved in the process of installation</li>
+  </ol>
+
+  <h3 class="sub-heading">1.7.2 Factors to be Considered</h3>
+  <ol class="num-list">
+    <li>Objective of the costing system</li>
+    <li>Nature of the business</li>
+    <li>Quality of the management</li>
+    <li>Size and type of organisation, scope of authority, sources of information</li>
+    <li>Technical aspect of the business</li>
+    <li>Attitude and behaviour of the staff</li>
+    <li>Impact of different operations on variable expenses</li>
+    <li>Manner of reconciliation between cost and financial accounts</li>
+    <li>Quantum of information needs and data collection process</li>
+    <li>Nature of the product and the type of costing system which will suit</li>
+    <li>Extent to which the importance of the system can be appreciated by supporting staff</li>
+  </ol>
+
+  <h3 class="sub-heading">1.7.3 Success of the Costing System</h3>
+  <p>The requisites of an effective system of costing are:</p>
+  <ol class="num-list">
+    <li>It suits the nature and requirements of the business</li>
+    <li>It is simple and easy to operate</li>
+    <li>It receives full cooperation of the staff</li>
+    <li>It ensures promptness and regularity in flow of required information</li>
+    <li>It is closely linked with the financial accounting system</li>
+    <li>It contributes to cost control effectively</li>
+    <li>It provides for comparison of estimates with actual results</li>
+    <li>There is considerable flexibility to adjust with changing conditions</li>
+    <li>The cost of installation is justified by the benefits derived</li>
+  </ol>
+
+  <div class="progress-box">
+    <div class="pb-title">✏ Check Your Progress — C</div>
+    <ol>
+      <li>State four major factors for installation of a costing system.</li>
+      <li>State the possible difficulties faced in introducing a costing system.</li>
+      <li>Answer YES or NO: (i) Costing produces information useful to competitors. (ii) Wastage of labour need not be checked. (iii) Cost records can assist verification of financial accounts. (iv) There is a standard system of costing for all types of organisations. (v) The cost of the costing system should be justified by the benefits. (vi) The costing system should be independent of the financial accounting system.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 1.8 SUMMARY ── -->
+<section class="section" id="s18">
+  <div class="section-heading">
+    <span class="num">1.8</span>
+    <h2>Let Us Sum Up</h2>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Summary</div>
+    <p>Costing is a specialised branch of accounting responsible for the ascertainment and control of costs. Its need arose from limitations of financial accounting and complexities of modern enterprise management. Its main objects are: (i) ascertainment of costs, (ii) fixation of prices, (iii) control of costs, and (iv) providing cost data for managerial use. For installation, a costing system must: suit the nature of the business, be simple to understand, be introduced gradually, provide information promptly, be economical, and be flexible.</p>
+  </div>
+</section>
+
+<!-- ── 1.9 KEY WORDS ── -->
+<section class="section" id="s19">
+  <div class="section-heading">
+    <span class="num">1.9</span>
+    <h2>Key Words</h2>
+  </div>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <span class="kw">Allocation</span>
+      <span class="def">Distribution of expenditure among various cost centres.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Budget</span>
+      <span class="def">An estimate of allocations in respect of expenditure and/or revenue during a given future period.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Costing</span>
+      <span class="def">The technique and process of ascertaining costs.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Cost Sheet</span>
+      <span class="def">A statement showing different elements of cost relating to a particular product or job for a particular period.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Cost Centre</span>
+      <span class="def">A location, person, equipment or department for which costs may be ascertained and used for control.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Direct Expenses</span>
+      <span class="def">Expenses incurred in connection with material, labour, etc. which can be directly identified with items produced.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Fixed Expenses</span>
+      <span class="def">Expenses which do not increase or decrease with a change in volume of output.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Variable Expenses</span>
+      <span class="def">Expenses which increase or decrease in the same proportion as the change in output.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Idle Capacity</span>
+      <span class="def">Unutilised production capacity of an enterprise.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Overheads</span>
+      <span class="def">All types of indirect expenses.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Variance</span>
+      <span class="def">Difference between standard cost and actual cost.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Reconciliation</span>
+      <span class="def">Matching two results by locating causes of difference and making them agree through adjustments.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Standard</span>
+      <span class="def">Pre-determined level of performance or cost based on previous experience.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Unit Cost</span>
+      <span class="def">Total cost divided by the output quantity.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Quotation</span>
+      <span class="def">Minimum acceptable price offered for the supply of goods or services.</span>
+    </div>
+    <div class="keyword-card">
+      <span class="kw">Indirect Expenses</span>
+      <span class="def">Overheads relating to manufacturing, administration, distribution or selling which cannot be directly identified.</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── 1.10 ANSWERS ── -->
+<section class="section" id="s110">
+  <div class="section-heading">
+    <span class="num">1.10</span>
+    <h2>Answers to Check Your Progress</h2>
+  </div>
+  <p><strong>A–3.</strong> (a) Wages &nbsp;(b) Cloth &nbsp;(c) Buttons &nbsp;(d) Package</p>
+  <p><strong>A–4.</strong> (i) True &nbsp;(ii) False &nbsp;(iii) True &nbsp;(iv) False &nbsp;(v) True &nbsp;(vi) True</p>
+  <p><strong>B–1.</strong> (a) Cost ascertainment &nbsp;(b) Cost control &nbsp;(c) Fixation of prices &nbsp;(d) Providing data for management decisions</p>
+  <p><strong>B–3.</strong> (i) d – estimate &nbsp;(ii) b – decisions &nbsp;(iii) c – internal &nbsp;(iv) a – estimated &nbsp;(v) c – verified</p>
+  <p><strong>C–3.</strong> (i) No &nbsp;(ii) No &nbsp;(iii) Yes &nbsp;(iv) No &nbsp;(v) Yes &nbsp;(vi) No</p>
+</section>
+
+<!-- ── 1.11 TERMINAL QUESTIONS ── -->
+<section class="section" id="s111">
+  <div class="section-heading">
+    <span class="num">1.11</span>
+    <h2>Terminal Questions</h2>
+  </div>
+  <p style="font-size:.85rem; color:var(--muted); margin-bottom:1rem;">These are for practice only. Do not submit to the University.</p>
+  <ol class="tq-list">
+    <li>Why do we need an effective system of cost accounting in a business enterprise?</li>
+    <li>Define 'Cost Accounting'. State its main objects.</li>
+    <li>State the importance of costing in a modern economy.</li>
+    <li>Differentiate between Cost Accounting and Financial Accounting.</li>
+    <li>What are the major advantages of Cost Accounting to a manufacturing concern?</li>
+    <li>How can you install a system of costing in a biscuit producing factory? What are the possible difficulties?</li>
+    <li>"Financial Accounting procedures are generally designed to ascertain the periodic profit or loss, but there are important limitations and deficiencies in the system." Discuss.</li>
+    <li>How do Cost Accounting records help in the planning and control of business operations of an enterprise?</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>
+  BCOC-138 · Unit 1 · Nature and Scope of Cost Accounting · IGNOU
+</footer>
+
+<button id="top-btn" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const bar = document.getElementById('progress-bar');
+  const btn = document.getElementById('top-btn');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    bar.style.width = (scrolled / total * 100) + '%';
+    btn.classList.toggle('visible', scrolled > 300);
+  });
+</script>
+
+</body>
+</html>
