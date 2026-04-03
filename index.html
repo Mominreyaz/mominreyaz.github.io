@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Margin — Academic Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1816;
+    --ink-mid: #4a4540;
+    --ink-light: #8a857f;
+    --paper: #faf8f4;
+    --paper-warm: #f2ede4;
+    --accent: #b8420a;
+    --accent-light: #e8d5c4;
+    --rule: #d8d0c4;
+    --serif: 'Libre Baskerville', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TOP RULE ── */
+  .top-rule {
+    height: 4px;
+    background: var(--ink);
+    width: 100%;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 1px solid var(--rule);
+    padding: 2rem 0 0;
+    background: var(--paper);
+  }
+
+  .masthead-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .masthead-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .site-name {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .site-tagline {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--ink-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .masthead-nav {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 0.5rem;
+  }
+
+  .masthead-nav a {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    padding: 0.7rem 1.2rem 0.7rem 0;
+    margin-right: 1.2rem;
+    border-top: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .masthead-nav a:hover, .masthead-nav a.active {
+    color: var(--ink);
+    border-top-color: var(--accent);
+  }
+
+  /* ── DATE STRIP ── */
+  .date-strip {
+    background: var(--ink);
+    color: var(--paper-warm);
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.45rem;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 3rem;
+    align-items: start;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.1s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-divider {
+    background: var(--rule);
+    height: 100%;
+    min-height: 240px;
+  }
+
+  .hero-label {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-label::after {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-title {
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-excerpt {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-meta {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--ink-light);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-meta .author { color: var(--ink-mid); font-weight: 500; }
+  .hero-meta .sep { color: var(--rule); }
+
+  .read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .read-link:hover { border-color: var(--accent); }
+  .read-link::after { content: '→'; }
+
+  .hero-secondary {
+    padding-top: 0.5rem;
+  }
+
+  .secondary-issue {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .secondary-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .secondary-item {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .secondary-item:last-child { border-bottom: none; }
+
+  .si-category {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .si-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .si-meta {
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    color: var(--ink-light);
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-rule {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-rule hr {
+    border: none;
+    border-top: 2px solid var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .section-rule-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 2rem;
+  }
+
+  /* ── ARTICLE GRID ── */
+  .articles {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 2rem;
+  }
+
+  .article-card {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .article-card:nth-child(1) { animation-delay: 0.15s; }
+  .article-card:nth-child(2) { animation-delay: 0.25s; }
+  .article-card:nth-child(3) { animation-delay: 0.35s; }
+  .article-card:nth-child(4) { animation-delay: 0.45s; }
+  .article-card:nth-child(5) { animation-delay: 0.55s; }
+  .article-card:nth-child(6) { animation-delay: 0.65s; }
+
+  .ac-number {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  .ac-category {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .ac-title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+
+  .ac-excerpt {
+    font-size: 0.875rem;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+  }
+
+  .ac-meta {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.6rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--ink);
+    color: var(--paper-warm);
+    padding: 5rem 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .about-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-heading-wrap {}
+
+  .about-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .about-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+  }
+
+  .about-heading em {
+    display: block;
+    font-style: italic;
+    color: var(--accent-light);
+  }
+
+  .about-body {
+    padding-top: 0.5rem;
+  }
+
+  .about-body p {
+    font-size: 1rem;
+    color: #c4beb6;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-body p:last-child { margin-bottom: 0; }
+
+  .about-body strong { color: var(--paper-warm); font-weight: 700; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #3a3630;
+  }
+
+  .stat-item {}
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--paper);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a7268;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--rule);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--ink-light);
+  }
+
+  footer .footer-name {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-divider { display: none; }
+    .articles { grid-template-columns: 1fr; gap: 1.5rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stats { grid-template-columns: repeat(2, 1fr); }
+    .masthead-top { flex-direction: column; gap: 0.5rem; }
+    .site-tagline { text-align: left; }
+  }
+
+  @media (max-width: 500px) {
+    .articles { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-rule"></div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <a href="#" class="site-name">The Margin</a>
+      <div class="site-tagline">Ideas in the margins<br>of knowledge</div>
+    </div>
+    <nav class="masthead-nav">
+      <a href="#" class="active">Home</a>
+      <a href="#articles">Articles</a>
+      <a href="#about">About</a>
+      <a href="#">Archive</a>
+    </nav>
+  </div>
+</header>
+
+<div class="date-strip">
+  Sunday, 29 March 2026 &nbsp;·&nbsp; Vol. IV, Issue 12
+</div>
+
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <!-- Featured article -->
+    <div class="hero-primary">
+      <div class="hero-label">Featured essay</div>
+      <h1 class="hero-title">The Illusion of <em>Objectivity</em> in Academic Assessment</h1>
+      <p class="hero-excerpt">Grading systems have long been presented as neutral arbiters of merit. But when we examine the cultural, linguistic, and structural assumptions baked into rubrics, a more unsettling picture emerges.</p>
+      <div class="hero-meta">
+        <span class="author">Momin</span>
+        <span class="sep">·</span>
+        <span>12 min read</span>
+        <span class="sep">·</span>
+        <span>Education &amp; Society</span>
+      </div>
+      <br>
+      <a href="#" class="read-link">Read the essay</a>
+    </div>
+
+    <div class="hero-divider"></div>
+
+    <!-- Secondary items -->
+    <div class="hero-secondary">
+      <div class="secondary-issue">Also in this issue</div>
+      <div class="secondary-stack">
+        <div class="secondary-item">
+          <div class="si-category">Philosophy of Mind</div>
+          <div class="si-title">What Does It Mean to Truly Understand Something?</div>
+          <div class="si-meta">8 min read · Momin</div>
+        </div>
+        <div class="secondary-item">
+          <div class="si-category">Economics</div>
+          <div class="si-title">Why Standard Models Still Fail to Predict Crises</div>
+          <div class="si-meta">6 min read · Momin</div>
+        </div>
+        <div class="secondary-item">
+          <div class="si-category">Cognitive Science</div>
+          <div class="si-title">The Metacognition Gap: Teaching Students to Think About Thinking</div>
+          <div class="si-meta">10 min read · Momin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION LABEL -->
+<div class="section-rule" id="articles">
+  <hr>
+  <div class="section-rule-label">Recent articles</div>
+</div>
+
+<!-- ARTICLE GRID -->
+<section class="articles">
+
+  <div class="article-card">
+    <div class="ac-number">01</div>
+    <div class="ac-category">Corporate Governance</div>
+    <div class="ac-title">Agency Theory and Its Discontents: A Re-reading for Modern Firms</div>
+    <p class="ac-excerpt">The classic principal-agent framework shaped decades of boardroom policy. But its core assumptions are starting to crack.</p>
+    <div class="ac-meta">7 min · March 2026</div>
+  </div>
+
+  <div class="article-card">
+    <div class="ac-number">02</div>
+    <div class="ac-category">Auditing &amp; Accountability</div>
+    <div class="ac-title">When Auditors Fail: Structural Pressures Behind High-Profile Lapses</div>
+    <p class="ac-excerpt">Independence is the cornerstone of audit. So why does it keep eroding, despite tighter regulation after every scandal?</p>
+    <div class="ac-meta">9 min · March 2026</div>
+  </div>
+
+  <div class="article-card">
+    <div class="ac-number">03</div>
+    <div class="ac-category">History of Ideas</div>
+    <div class="ac-title">Ibn Khaldun's Asabiyya and the Rise and Fall of Institutions</div>
+    <p class="ac-excerpt">A 14th-century North African scholar developed a cyclical theory of civilization that reads remarkably well in 2026.</p>
+    <div class="ac-meta">11 min · Feb 2026</div>
+  </div>
+
+  <div class="article-card">
+    <div class="ac-number">04</div>
+    <div class="ac-category">Finance &amp; Markets</div>
+    <div class="ac-title">Reading Market Psychology During Geopolitical Shocks</div>
+    <p class="ac-excerpt">When global events shock equity markets, investors often mistake short-term volatility signals for long-term structural breaks.</p>
+    <div class="ac-meta">6 min · Feb 2026</div>
+  </div>
+
+  <div class="article-card">
+    <div class="ac-number">05</div>
+    <div class="ac-category">Education</div>
+    <div class="ac-title">How Self-Teaching Actually Works: Lessons from Cognitive Science</div>
+    <p class="ac-excerpt">The ability to monitor your own comprehension — metacognition — is both the most powerful and most neglected academic skill.</p>
+    <div class="ac-meta">8 min · Jan 2026</div>
+  </div>
+
+  <div class="article-card">
+    <div class="ac-number">06</div>
+    <div class="ac-category">Psychology</div>
+    <div class="ac-title">Upper Limiting: Why We Sabotage Ourselves at the Moment of Success</div>
+    <p class="ac-excerpt">A curious pattern appears in high-achievers: progress triggers self-interruption. Understanding this is the first step to breaking it.</p>
+    <div class="ac-meta">7 min · Jan 2026</div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-heading-wrap">
+      <div class="about-eyebrow">About this blog</div>
+      <h2 class="about-heading">Written in<br>the space<br><em>between</em><br>disciplines.</h2>
+    </div>
+    <div class="about-body">
+      <p><strong>The Margin</strong> is an independent academic blog exploring ideas at the intersection of economics, philosophy, education, and social science. It is written for curious readers who want more than summaries — who want to sit with difficult questions.</p>
+      <p>Essays here draw on formal academic literature but are written to be readable by anyone willing to think carefully. No jargon for its own sake. No hedging for the sake of safety. Just honest intellectual engagement with hard problems.</p>
+      <p>The blog is maintained by a student of commerce and ideas, based in Kashmir, who believes that the best thinking happens at the edges of fields — in the <em>margins</em> where disciplines meet and argue.</p>
+
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-num">40+</div>
+          <div class="stat-label">Essays published</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Subject areas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">IV</div>
+          <div class="stat-label">Years running</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">The Margin</div>
+  <p>An independent academic blog · Est. 2022 · Kashmir, India</p>
+  <p style="margin-top: 0.4rem;">Written with curiosity. Read with patience.</p>
+</footer>
+
+</body>
+</html>
