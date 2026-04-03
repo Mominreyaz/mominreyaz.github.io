@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKSSB / JKPSC Study Portal — Momin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #1c2330;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.18);
+  --text: #e6edf3;
+  --text-mid: #8b949e;
+  --text-dim: #484f58;
+  --accent: #2f81f7;
+  --accent-glow: rgba(47,129,247,0.15);
+  --green: #3fb950;
+  --green-bg: rgba(63,185,80,0.1);
+  --amber: #d29922;
+  --amber-bg: rgba(210,153,34,0.1);
+  --red: #f85149;
+  --red-bg: rgba(248,81,73,0.1);
+  --purple: #bc8cff;
+  --purple-bg: rgba(188,140,255,0.1);
+  --teal: #39d0d8;
+  --teal-bg: rgba(57,208,216,0.1);
+  --pink: #f778ba;
+  --pink-bg: rgba(247,120,186,0.1);
+  --sans: 'Sora', system-ui, sans-serif;
+  --serif: 'Playfair Display', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,17,23,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.logo-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.logo-badge {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid rgba(47,129,247,0.3);
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progress-pill {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--green);
+  background: var(--green-bg);
+  border: 1px solid rgba(63,185,80,0.2);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem 3rem;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.1s forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.hero-title span { color: var(--accent); }
+
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-num {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+
+/* ── SUBJECT GRID ── */
+.subjects {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.subject-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.4rem;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
+  cursor: pointer;
+}
+
+.subject-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg3);
+  transform: translateY(-2px);
+}
+
+.subject-card:nth-child(1)  { animation-delay: 0.1s; }
+.subject-card:nth-child(2)  { animation-delay: 0.15s; }
+.subject-card:nth-child(3)  { animation-delay: 0.2s; }
+.subject-card:nth-child(4)  { animation-delay: 0.25s; }
+.subject-card:nth-child(5)  { animation-delay: 0.3s; }
+.subject-card:nth-child(6)  { animation-delay: 0.35s; }
+.subject-card:nth-child(7)  { animation-delay: 0.4s; }
+.subject-card:nth-child(8)  { animation-delay: 0.45s; }
+.subject-card:nth-child(9)  { animation-delay: 0.5s; }
+.subject-card:nth-child(10) { animation-delay: 0.55s; }
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.subject-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.subject-status {
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+.status-active   { color: var(--green);  background: var(--green-bg);  border: 1px solid rgba(63,185,80,0.2); }
+.status-progress { color: var(--amber);  background: var(--amber-bg);  border: 1px solid rgba(210,153,34,0.2); }
+.status-todo     { color: var(--text-mid); background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+
+.subject-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+}
+
+.subject-desc {
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.card-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.pill {
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+}
+
+.pill-notes   { color: var(--accent);  background: var(--accent-glow);  border-color: rgba(47,129,247,0.2); }
+.pill-formula { color: var(--purple);  background: var(--purple-bg);     border-color: rgba(188,140,255,0.2); }
+.pill-pyq     { color: var(--amber);   background: var(--amber-bg);      border-color: rgba(210,153,34,0.2); }
+.pill-mcq     { color: var(--green);   background: var(--green-bg);      border-color: rgba(63,185,80,0.2); }
+
+.progress-bar-wrap {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.topics-count { color: var(--text-mid); }
+
+.open-arrow {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  transition: color 0.2s, transform 0.2s;
+}
+
+.subject-card:hover .open-arrow {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+/* ── QUICK ACCESS ── */
+.quick-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.quick-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.quick-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg3);
+}
+
+.quick-icon {
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.quick-text {}
+.quick-title { font-size: 0.82rem; font-weight: 500; color: var(--text); margin-bottom: 1px; }
+.quick-sub   { font-size: 0.7rem; color: var(--text-mid); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+footer span { color: var(--text-mid); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 540px;
+  padding: 2rem;
+  transform: translateY(20px);
+  transition: transform 0.2s;
+}
+
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+
+.modal-close {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-mid);
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.modal-close:hover { border-color: var(--border-hover); color: var(--text); }
+
+.modal-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.modal-tab {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: none;
+  color: var(--text-mid);
+  transition: background 0.15s, color 0.15s;
+  font-family: var(--sans);
+}
+
+.modal-tab.active {
+  background: var(--bg3);
+  color: var(--text);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.content-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.content-item:last-child { border-bottom: none; }
+
+.ci-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.ci-text { font-size: 0.85rem; color: var(--text-mid); line-height: 1.5; }
+.ci-text strong { color: var(--text); font-weight: 500; }
+
+.modal-coming-soon {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+}
+
+.modal-coming-soon .cs-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.modal-coming-soon p { margin-top: 0.4rem; font-size: 0.78rem; color: var(--text-dim); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .subjects { grid-template-columns: 1fr; }
+  .stats-row { gap: 1.5rem; }
+  .hero-title { font-size: 1.8rem; }
+  .topbar { padding: 0 1rem; }
+  .hero, .section-header, .subjects, .quick-section { padding-left: 1rem; padding-right: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="#" class="logo">
+    <div class="logo-icon">M</div>
+    <span class="logo-text">Momin's Study Portal</span>
+    <span class="logo-badge">JKSSB · JKPSC</span>
+  </a>
+  <div class="topbar-right">
+    <div class="progress-pill">📚 Exam Prep Active</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Personal Study Dashboard</div>
+  <h1 class="hero-title">Your complete<br><span>JKSSB / JKPSC</span><br>preparation hub.</h1>
+  <p class="hero-sub">Notes, formulas, previous year questions, and practice MCQs — all organized by subject, all in one place.</p>
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Subjects covered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Resources per subject</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Practice questions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Goal — Clear the exam</div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<div class="section-header">
+  <div class="section-title">All Subjects</div>
+</div>
+
+<section class="subjects" id="subjects">
+
+  <!-- MATH -->
+  <div class="subject-card" onclick="openModal('math')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--accent-glow);">📐</div>
+      <div class="subject-status status-active">Active</div>
+    </div>
+    <div class="subject-name">Mathematics</div>
+    <div class="subject-desc">Arithmetic, algebra, percentages, profit/loss, time & work, geometry basics.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-formula">Formulas</span>
+      <span class="pill pill-pyq">PYQ</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:60%;background:var(--accent);"></div></div>
+    <div class="card-bottom"><span class="topics-count">18 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="subject-card" onclick="openModal('history')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--amber-bg);">🏛️</div>
+      <div class="subject-status status-progress">In Progress</div>
+    </div>
+    <div class="subject-name">History</div>
+    <div class="subject-desc">Ancient, medieval & modern India. J&K history. Freedom struggle. Important dynasties.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-pyq">PYQ</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:40%;background:var(--amber);"></div></div>
+    <div class="card-bottom"><span class="topics-count">22 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- SCIENCE -->
+  <div class="subject-card" onclick="openModal('science')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--green-bg);">🔬</div>
+      <div class="subject-status status-progress">In Progress</div>
+    </div>
+    <div class="subject-name">General Science</div>
+    <div class="subject-desc">Physics, chemistry, biology basics. Human body. Scientific discoveries. Space.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-formula">Formulas</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:35%;background:var(--green);"></div></div>
+    <div class="card-bottom"><span class="topics-count">20 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- GK -->
+  <div class="subject-card" onclick="openModal('gk')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--purple-bg);">🌐</div>
+      <div class="subject-status status-active">Active</div>
+    </div>
+    <div class="subject-name">General Knowledge</div>
+    <div class="subject-desc">Current affairs, India & world GK, awards, summits, sports, important persons.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-pyq">PYQ</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:50%;background:var(--purple);"></div></div>
+    <div class="card-bottom"><span class="topics-count">30 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- GEOGRAPHY -->
+  <div class="subject-card" onclick="openModal('geography')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--teal-bg);">🗺️</div>
+      <div class="subject-status status-todo">To Do</div>
+    </div>
+    <div class="subject-name">Geography</div>
+    <div class="subject-desc">Physical geography, Indian geography, J&K geography, rivers, climate, resources.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:15%;background:var(--teal);"></div></div>
+    <div class="card-bottom"><span class="topics-count">16 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- POLITY -->
+  <div class="subject-card" onclick="openModal('polity')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:rgba(248,81,73,0.1);">⚖️</div>
+      <div class="subject-status status-progress">In Progress</div>
+    </div>
+    <div class="subject-name">Indian Polity</div>
+    <div class="subject-desc">Constitution, fundamental rights, Parliament, judiciary, J&K reorganization, governance.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-pyq">PYQ</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:45%;background:var(--red);"></div></div>
+    <div class="card-bottom"><span class="topics-count">24 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- ECONOMY -->
+  <div class="subject-card" onclick="openModal('economy')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--amber-bg);">📈</div>
+      <div class="subject-status status-todo">To Do</div>
+    </div>
+    <div class="subject-name">Indian Economy</div>
+    <div class="subject-desc">GDP, inflation, banking, budgets, five year plans, economic terms, schemes.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-formula">Formulas</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:10%;background:var(--amber);"></div></div>
+    <div class="card-bottom"><span class="topics-count">14 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="subject-card" onclick="openModal('english')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--pink-bg);">✍️</div>
+      <div class="subject-status status-todo">To Do</div>
+    </div>
+    <div class="subject-name">English Language</div>
+    <div class="subject-desc">Grammar, vocabulary, comprehension, error spotting, fill in the blanks, synonyms/antonyms.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-pyq">PYQ</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:20%;background:var(--pink);"></div></div>
+    <div class="card-bottom"><span class="topics-count">12 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- REASONING -->
+  <div class="subject-card" onclick="openModal('reasoning')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--accent-glow);">🧩</div>
+      <div class="subject-status status-todo">To Do</div>
+    </div>
+    <div class="subject-name">Reasoning & Aptitude</div>
+    <div class="subject-desc">Logical reasoning, series, coding-decoding, analogies, blood relations, directions.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:5%;background:var(--accent);"></div></div>
+    <div class="card-bottom"><span class="topics-count">15 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+  <!-- JK SPECIAL -->
+  <div class="subject-card" onclick="openModal('jkspecial')">
+    <div class="card-top">
+      <div class="subject-icon" style="background:var(--green-bg);">🏔️</div>
+      <div class="subject-status status-active">Active</div>
+    </div>
+    <div class="subject-name">J&K Special</div>
+    <div class="subject-desc">J&K history, culture, geography, rivers, districts, art & craft, governance, LG system.</div>
+    <div class="card-pills">
+      <span class="pill pill-notes">Notes</span>
+      <span class="pill pill-pyq">PYQ</span>
+      <span class="pill pill-mcq">MCQs</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:55%;background:var(--green);"></div></div>
+    <div class="card-bottom"><span class="topics-count">20 topics</span><span class="open-arrow">→</span></div>
+  </div>
+
+</section>
+
+<!-- QUICK ACCESS -->
+<div class="section-header">
+  <div class="section-title">Quick Access</div>
+</div>
+
+<section class="quick-section">
+  <div class="quick-grid">
+    <div class="quick-card">
+      <div class="quick-icon" style="background:var(--amber-bg);">📋</div>
+      <div class="quick-text">
+        <div class="quick-title">Previous Year Papers</div>
+        <div class="quick-sub">JKSSB & JKPSC PYQs</div>
+      </div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-icon" style="background:var(--accent-glow);">🎯</div>
+      <div class="quick-text">
+        <div class="quick-title">Daily Practice Set</div>
+        <div class="quick-sub">20 mixed MCQs</div>
+      </div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-icon" style="background:var(--purple-bg);">📅</div>
+      <div class="quick-text">
+        <div class="quick-title">Study Timetable</div>
+        <div class="quick-sub">Weekly schedule</div>
+      </div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-icon" style="background:var(--green-bg);">✅</div>
+      <div class="quick-text">
+        <div class="quick-title">Revision Checklist</div>
+        <div class="quick-sub">Track what's done</div>
+      </div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-icon" style="background:var(--red-bg);">⚡</div>
+      <div class="quick-text">
+        <div class="quick-title">Important Formulas</div>
+        <div class="quick-sub">Math & Science</div>
+      </div>
+    </div>
+    <div class="quick-card">
+      <div class="quick-icon" style="background:var(--teal-bg);">🗞️</div>
+      <div class="quick-text">
+        <div class="quick-title">Current Affairs</div>
+        <div class="quick-sub">Monthly digest</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Momin Reyaz</span> · JKSSB / JKPSC Study Portal · Built for focused preparation
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Subject</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs" id="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab(this,'notes')">Notes</button>
+      <button class="modal-tab" onclick="switchTab(this,'formulas')">Formulas</button>
+      <button class="modal-tab" onclick="switchTab(this,'pyq')">PYQ</button>
+      <button class="modal-tab" onclick="switchTab(this,'mcq')">MCQs</button>
+    </div>
+    <div id="tab-notes" class="tab-content active"></div>
+    <div id="tab-formulas" class="tab-content"></div>
+    <div id="tab-pyq" class="tab-content"></div>
+    <div id="tab-mcq" class="tab-content"></div>
+  </div>
+</div>
+
+<script>
+const subjects = {
+  math: {
+    name: '📐 Mathematics',
+    notes: [
+      { title: 'Number System', text: 'Natural, whole, integers, rational, irrational numbers. Divisibility rules for 2–13.' },
+      { title: 'Percentages', text: 'x% of y = (x×y)/100. Percentage increase/decrease formulas. Successive % changes.' },
+      { title: 'Profit & Loss', text: 'SP = CP×(1+P/100). Discount = MP – SP. Successive discounts: (a+b–ab/100)%.' },
+      { title: 'Time & Work', text: 'If A does in x days, per day work = 1/x. Combined work = 1/x + 1/y per day.' },
+      { title: 'Simple & Compound Interest', text: 'SI = PRT/100. CI = P(1+R/100)^T – P. Difference CI–SI = P(R/100)².' },
+    ],
+    formulas: [
+      { title: 'Area Formulas', text: 'Circle = πr². Triangle = ½bh. Rectangle = l×b. Trapezium = ½(a+b)×h.' },
+      { title: 'Speed & Distance', text: 'Speed = Distance/Time. Relative speed (same dir) = |s₁–s₂|. (Opp dir) = s₁+s₂.' },
+      { title: 'Averages', text: 'Average = Sum/Count. Weighted average = Σ(w×x)/Σw.' },
+      { title: 'Ratio & Proportion', text: 'If a:b = c:d then ad = bc. Compound ratio = (a×c):(b×d).' },
+    ],
+    pyq: [
+      { title: '2023 JKSSB Finance Paper', text: 'A shopkeeper marks goods 40% above CP and gives 25% discount. Profit %?' },
+      { title: '2022 JKPSC KAS', text: 'Two trains of 120m and 80m run at 60 and 40 km/h. Time to cross each other?' },
+      { title: '2021 JKSSB Accounts', text: 'Find CI on ₹5000 at 10% for 2 years compounded annually.' },
+    ],
+    mcq: null
+  },
+  history: {
+    name: '🏛️ History',
+    notes: [
+      { title: 'Indus Valley Civilization', text: 'Major sites: Harappa, Mohenjo-daro, Lothal. Known for town planning, drainage, weights.' },
+      { title: 'Mughal Empire', text: 'Babur (1526) → Akbar → Aurangzeb. Din-i-Ilahi by Akbar. Battle of Panipat – 1526, 1556, 1761.' },
+      { title: 'J&K History', text: 'Dogra rule from 1846 (Treaty of Amritsar). Maharaja Hari Singh signed Instrument of Accession Oct 26, 1947.' },
+      { title: 'Freedom Struggle', text: '1857 revolt. INC founded 1885. Non-Cooperation (1920), Civil Disobedience (1930), Quit India (1942).' },
+      { title: 'Modern India', text: 'Independence Aug 15, 1947. Constitution adopted Nov 26, 1949. Republic Day Jan 26, 1950.' },
+    ],
+    formulas: null,
+    pyq: [
+      { title: '2023 JKSSB', text: 'Who was the last Dogra ruler of J&K?' },
+      { title: '2022 JKPSC', text: 'In which year did J&K formally accede to India?' },
+      { title: '2021 JKSSB', text: 'The Battle of Plassey was fought in which year?' },
+    ],
+    mcq: null
+  },
+  science: {
+    name: '🔬 General Science',
+    notes: [
+      { title: 'Newton\'s Laws', text: '1st: Inertia. 2nd: F=ma. 3rd: Every action has equal & opposite reaction.' },
+      { title: 'Human Body', text: 'Largest organ: Skin. Largest gland: Liver. Hardest substance: Tooth enamel. Blood pH: 7.35–7.45.' },
+      { title: 'Periodic Table', text: 'Atomic No. = protons. Period = electron shells. Group = valence electrons.' },
+      { title: 'Cell Biology', text: 'Powerhouse: Mitochondria. Control centre: Nucleus. Cell wall only in plant cells.' },
+    ],
+    formulas: [
+      { title: 'Physics Basics', text: 'v = u + at. s = ut + ½at². v² = u² + 2as. KE = ½mv². PE = mgh.' },
+      { title: 'Ohm\'s Law', text: 'V = IR. Power P = VI = I²R = V²/R. Resistors in series: R = R₁+R₂.' },
+    ],
+    pyq: null,
+    mcq: null
+  },
+  gk: {
+    name: '🌐 General Knowledge',
+    notes: [
+      { title: 'National Symbols', text: 'Animal: Tiger. Bird: Peacock. Flower: Lotus. Fruit: Mango. Tree: Banyan. River: Ganga.' },
+      { title: 'Important Organisations', text: 'UN – 1945, New York. WHO – Geneva. IMF/World Bank – Washington DC. WTO – Geneva.' },
+      { title: 'Recent Awards 2024–25', text: 'Nobel Peace: Nihon Hidankyo. Nobel Literature: Han Kang. Bharat Ratna: MS Swaminathan (posth.).' },
+      { title: 'Sports', text: 'Olympics 2024: Paris. India medal tally: 6. Neeraj Chopra – Silver in Javelin.' },
+    ],
+    formulas: null,
+    pyq: [
+      { title: '2024 Current Affairs', text: 'Who is the current Chief Justice of India?' },
+      { title: '2023 JKSSB GK', text: 'Which country hosted G20 Summit in 2023?' },
+    ],
+    mcq: null
+  },
+  geography: {
+    name: '🗺️ Geography',
+    notes: [
+      { title: 'Indian Rivers', text: 'Himalayan: Ganga, Yamuna, Brahmaputra. Peninsular: Godavari, Krishna, Kaveri, Mahanadi.' },
+      { title: 'J&K Geography', text: 'Districts: 20 (10 Jammu + 10 Kashmir). Major rivers: Jhelum, Chenab, Tawi, Indus. Dal Lake, Wular Lake.' },
+      { title: 'Climate Zones', text: 'Tropical: south. Arid: Rajasthan. Alpine: Himalayas. Monsoon June–Sep from SW.' },
+    ],
+    formulas: null,
+    pyq: null,
+    mcq: null
+  },
+  polity: {
+    name: '⚖️ Indian Polity',
+    notes: [
+      { title: 'Fundamental Rights', text: 'Art 12–35. Right to Equality (14–18). Freedom (19–22). Against Exploitation (23–24). Religion (25–28). Education (29–30). Constitutional Remedies (32).' },
+      { title: 'Parliament', text: 'Lok Sabha: max 552 members, 5-year term. Rajya Sabha: max 250, permanent house. Joint sitting: Art 108.' },
+      { title: 'J&K Reorganization', text: 'J&K Reorganization Act 2019. Two UTs: J&K (legislature) and Ladakh (no legislature). Effective Oct 31, 2019.' },
+      { title: 'Emergency Provisions', text: 'National: Art 352. State: Art 356 (President\'s Rule). Financial: Art 360.' },
+    ],
+    formulas: null,
+    pyq: [
+      { title: '2023 JKPSC KAS', text: 'Under which Article can the President declare a National Emergency?' },
+      { title: '2022 JKSSB', text: 'When was J&K officially bifurcated into two Union Territories?' },
+    ],
+    mcq: null
+  },
+  economy: {
+    name: '📈 Indian Economy',
+    notes: [
+      { title: 'GDP & Growth', text: 'GDP = C + I + G + (X–M). India FY24 GDP growth: ~8.2%. Largest sector by GDP: Services.' },
+      { title: 'Banking', text: 'RBI est. 1935, nationalised 1949. CRR, SLR, Repo Rate, Reverse Repo are RBI tools. NABARD – agriculture.' },
+      { title: 'Government Schemes', text: 'PM Jan Dhan, PM Mudra, Ayushman Bharat, PM Awas Yojana, MGNREGA – 100 days wage employment.' },
+    ],
+    formulas: [
+      { title: 'Economic Formulas', text: 'Inflation = (CPI current – CPI base)/CPI base × 100. GDP Deflator = Nominal GDP/Real GDP × 100.' },
+    ],
+    pyq: null,
+    mcq: null
+  },
+  english: {
+    name: '✍️ English Language',
+    notes: [
+      { title: 'Tenses', text: 'Simple, Continuous, Perfect, Perfect Continuous — each in Present, Past, Future. 12 tenses total.' },
+      { title: 'Voice', text: 'Active: Subject + Verb + Object. Passive: Object + be + Past Participle + by Subject.' },
+      { title: 'Common Errors', text: 'Subject-verb agreement. Wrong prepositions. Misuse of articles a/an/the. Double negatives.' },
+    ],
+    formulas: null,
+    pyq: [
+      { title: '2023 JKSSB English', text: 'Fill in the blank: She _____ to the market yesterday. (go)' },
+    ],
+    mcq: null
+  },
+  reasoning: {
+    name: '🧩 Reasoning & Aptitude',
+    notes: [
+      { title: 'Number Series', text: 'Identify pattern: arithmetic (+/–), geometric (×/÷), prime, square, cube, alternating.' },
+      { title: 'Coding-Decoding', text: 'Letter coding, number coding, substitution. Find the rule applied consistently.' },
+      { title: 'Blood Relations', text: 'Draw family tree. Common trick: gender of speaker often not stated — be careful.' },
+      { title: 'Directions', text: 'Start with compass: N/S/E/W. After turns, track displacement. Final direction from start.' },
+    ],
+    formulas: null,
+    pyq: null,
+    mcq: null
+  },
+  jkspecial: {
+    name: '🏔️ J&K Special',
+    notes: [
+      { title: 'Rivers of J&K', text: 'Jhelum (originates Verinag), Chenab (Bara Lacha La), Tawi (Kailash Kund), Indus (Tibet), Ravi (Kullu Hills).' },
+      { title: 'Districts', text: '20 districts total: Kashmir div (10): Srinagar, Baramulla, Budgam, Anantnag, Kulgam, Pulwama, Shopian, Ganderbal, Bandipora, Kupwara.' },
+      { title: 'Art & Craft', text: 'Pashmina shawls, Kashmiri carpets, Khatamband (wooden ceiling), Papier-mâché, Sozni embroidery, Namdas.' },
+      { title: 'Important Passes', text: 'Zoji La (connects Srinagar–Leh), Banihal (NH44), Pir Panjal, Sinthan Top, Razdan Pass.' },
+      { title: 'Governance', text: 'UT with legislature. LG: Sinha. Two divisions: Jammu & Kashmir. High Court at Srinagar & Jammu.' },
+    ],
+    formulas: null,
+    pyq: [
+      { title: '2024 JKSSB', text: 'Name the river that originates from Verinag spring in Kashmir.' },
+      { title: '2023 JKSSB', text: 'Which pass connects Srinagar to Leh on the NH1?' },
+      { title: '2022 JKPSC', text: 'In which district is the Wular Lake located?' },
+    ],
+    mcq: null
+  }
+};
+
+function openModal(key) {
+  const s = subjects[key];
+  document.getElementById('modal-title').textContent = s.name;
+
+  const tabs = document.getElementById('modal-tabs');
+  tabs.innerHTML = '';
+  const sections = ['notes','formulas','pyq','mcq'];
+  const labels = ['Notes','Formulas','PYQ','MCQs'];
+  let firstActive = null;
+
+  sections.forEach((sec, i) => {
+    if (s[sec]) {
+      const btn = document.createElement('button');
+      btn.className = 'modal-tab' + (firstActive === null ? ' active' : '');
+      btn.textContent = labels[i];
+      btn.onclick = function(){ switchTab(this, sec); };
+      tabs.appendChild(btn);
+      if (firstActive === null) firstActive = sec;
+    }
+  });
+
+  sections.forEach(sec => {
+    const el = document.getElementById('tab-' + sec);
+    el.innerHTML = '';
+    el.className = 'tab-content' + (sec === firstActive ? ' active' : '');
+
+    if (s[sec] === null) {
+      el.innerHTML = `<div class="modal-coming-soon"><div class="cs-icon">🚧</div><strong>Coming soon</strong><p>You haven't added content here yet. Build this page and upload it to GitHub!</p></div>`;
+    } else if (s[sec]) {
+      s[sec].forEach(item => {
+        el.innerHTML += `<div class="content-item"><div class="ci-dot"></div><div class="ci-text"><strong>${item.title}:</strong> ${item.text}</div></div>`;
+      });
+    }
+  });
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function switchTab(btn, sec) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + sec).classList.add('active');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
